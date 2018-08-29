@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('app.env').config()
 
 var meetupEndpoint = API-URL
 
@@ -12,3 +12,7 @@ $(document).ready(function(){
         }
     })
 })//end doc.ready
+
+function onSuccess(response){
+
+}

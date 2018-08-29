@@ -13,9 +13,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 //html endpoints
-// app.get('/', (req,res)=>{
-//     res.sendFile(__dirname, "./views/index.html");
-// })
 app.get("/greetings/:name", (req, res) => {
     res.send("hello" + req.params.name);
 })
