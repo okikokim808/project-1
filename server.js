@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
 
 //html endpoints
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
@@ -21,3 +22,4 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log('Express server is up and running on http://localhost:3000/');
 });
+
