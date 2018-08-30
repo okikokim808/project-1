@@ -30,6 +30,18 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+
+//OAUTH
+const logIN = "https://authorization-server.com/auth?response_type=code&client_id=CLIENT_ID&redirect_uri=https://www.meetup.com/"
+
+
+
+
+
+
+
+
+
 //html endpoints
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');

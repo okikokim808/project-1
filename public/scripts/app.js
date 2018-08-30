@@ -4,6 +4,10 @@
 //tests with Dalton
 // var meetupEndpoint = "https://api.meetup.com/topics/?name=cat&key=3b72576a30795b1d47673a2f3f2837"
 
+var authorizationEndpoint ="https://secure.meetup.com/oauth2/authorize"
+var accessTokenEndpoint = "https://secure.meetup.com/oauth2/access"
+
+
 var meetupEndpoint = "https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837"
 
 $(document).ready(function(){
