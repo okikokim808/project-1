@@ -8,17 +8,17 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 //password encryption extension
 const bcrypt = require('bcrypt');  
 //initialize database
 const db = require('./models');
-// const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 app.use(express.static('public'));
 
@@ -35,9 +35,12 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
+app.get('/interests', (req, res) => {
+    res.sendFile(__dirname + '/views/interests.html');
+});
 
 app.post('/signup', (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     db.User.find({email: req.body.email})
     .exec()
     .then( user => {
