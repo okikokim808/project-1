@@ -1,5 +1,7 @@
 // require('app.env').config()
 
+// var meetupEndpoint = API-URL
+
 var meetupEndpoint = "https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837"
 
 $(document).ready(function(){
