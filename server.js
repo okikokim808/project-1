@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     db.User.find({email: req.body.email})
     .exec()
     .then( user => {
@@ -70,62 +70,62 @@ app.post('/signup', (req, res) => {
       }
     })
 });
-// router.post('/login', (req, res) => {
-//     console.log("LOGIN CALLED");
-//     // find the user in our user db
-//     db.User.find({email: req.body.email})
-//       .exec()
-//       // if we have found a user
-//       .then( users => {
-//         // if there is not email in our db
-//         if(users.length < 1) {
-//           return res.status(401).json({
-//             message: "Email/Password incorrect"
-//           })
-//         }
-//         // we have an email in our db that matches what they gave us
-//         // now we have to compare their hashed password to what we have in our db
-//         bcrypt.compare(req.body.password, users[0].password, (err, match) => {
-//           console.log(match)
-//           // If the compare function breaks, let them know
-//           if(err){return res.status(500).json({err})}
+app.post('/login', (req, res) => {
+    console.log("LOGIN CALLED");
+    // find the user in our user db
+    db.User.find({email: req.body.email})
+      .exec()
+      // if we have found a user
+      .then( users => {
+        // if there is not email in our db
+        if(users.length < 1) {
+          return res.status(401).json({
+            message: "Email/Password incorrect"
+          })
+        }
+        // we have an email in our db that matches what they gave us
+        // now we have to compare their hashed password to what we have in our db
+        bcrypt.compare(req.body.password, users[0].password, (err, match) => {
+          console.log(match)
+          // If the compare function breaks, let them know
+          if(err){return res.status(500).json({err})}
   
-//           // If match is true (their password matches our db password)
-//           if(match){
-//             // create a json web token
-//             const token = jwt.sign({
-//                 // add some identifying information
-//                 email: users[0].email,
-//                 _id: users[0]._id
-//               }, 
-//               // add our super secret key (which should be hidden, not plaintext like this)
-//               "waffles",
-//               // these are options, not necessary
-//               {
-//                 // its good practice to have an expiration amount for jwt tokens.
-//                 expiresIn: "1h"
-//               },
-//             );
-//             // send success back to user, along with a token.
-//             return res.status(200).json(
-//               {
-//                 message: 'Auth successful',
-//                 token
-//               }
-//             )
-//           // the password provided does not match the password on file.
-//           } else {
-//             res.status(401).json({message: "Email/Password incorrect"})
-//           }
-//         })
+          // If match is true (their password matches our db password)
+          if(match){
+            // create a json web token
+            const token = jwt.sign({
+                // add some identifying information
+                email: users[0].email,
+                _id: users[0]._id
+              }, 
+              // add our super secret key (which should be hidden, not plaintext like this)
+              "waffles",
+              // these are options, not necessary
+              {
+                // its good practice to have an expiration amount for jwt tokens.
+                expiresIn: "5h"
+              },
+            );
+            // send success back to user, along with a token.
+            return res.status(200).json(
+              {
+                message: 'Auth successful',
+                token
+              }
+            )
+          // the password provided does not match the password on file.
+          } else {
+            res.status(401).json({message: "Email/Password incorrect"})
+          }
+        })
   
   
-//       })
-//       .catch( err => {
-//         console.log(err);
-//         res.status(500).json({err})
-//       })
-// });
+      })
+      .catch( err => {
+        console.log(err);
+        res.status(500).json({err})
+      })
+});
 
 //server
 app.listen(3000, () => {
