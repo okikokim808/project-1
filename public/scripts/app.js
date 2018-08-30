@@ -18,6 +18,5 @@ function onSuccess(response){
     var meetupJSONResponse = JSON.stringify(response)
     
     console.log('success ' + meetupJSONResponse)
-
     
 }

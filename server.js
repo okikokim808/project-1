@@ -1,21 +1,22 @@
-//require express and other modules
 const express = require('express');
 const app = express();
 
-//parse incoming urlencoded data and populate req.body object
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
 //initialize database
 // const db = require('./models');
 
-//serves static files from public folder
-app.use(express.static('public'));
+app.use(express.static('/public'));
 
 //html endpoints
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/views/interests.html');
 });
 
 //server

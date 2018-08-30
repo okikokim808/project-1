@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Select Interests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" media="screen" href="/styles/interest.css" />
-    <script src="/scripts/interest.js"></script>
+    <!-- <link rel="stylesheet" href="/styles/interest.css" /> -->
+    <!-- <script src="/scripts/interest.js"></script> -->
 </head>
 <body>
     <form>
@@ -27,7 +27,7 @@
                 <input type="checkbox" id ="learning" name="learning" value="learning"> Learning
             </div>
             <div class="grid-item">
-                <input type="checkbox" id ="photo" name="photo" value="photo"> Photo
+                <input type="checkbox" id ="photo" name="photo" value="photo"> Photography 
             </div>
             <div class="grid-item">
                 <input type="checkbox" id ="fd" name="fd" value="fd"> Food and Drink
@@ -54,7 +54,7 @@
                 <input type="checkbox" id ="sfg" name="sfg" value="sfg"> Sci-Fi and Games
             </div>
             <div class="grid-item">
-                <input type="checkbox" id ="beliefs" name="beliefs" value="beliefs"> beliefs
+                <input type="checkbox" id ="beliefs" name="beliefs" value="beliefs"> Beliefs
             </div>
             <div class="grid-item">
                 <input type="checkbox" id ="art" name="art" value="art"> Art 
@@ -74,9 +74,6 @@
             <div class="grid-item">
                 <input type="checkbox" id ="fb" name="fb" value="fb"> Fashion and Beauty
             </div>
-            <div class="grid-item"> 
-                <input type="checkbox" id ="social" name="social" value="social"> Social
-            </div>
             <div class="grid-item">
                 <input type="checkbox" id ="" name="social" value="social"> Social
             </div>
@@ -91,4 +88,48 @@
    
    
 </body>
+<script>
+
+var allInterests = [
+    "tech",
+    "family",
+    "hw",
+    "sf",
+    "learning",
+    "photo",
+    "fd",
+    "writing",
+    "lc",
+    "music",
+    "move",
+    "lgbtq",
+    "film",
+    "sfg",
+    "beliefs",
+    "art",
+    "bc",
+    "dance",
+    "pets",
+    "hc",
+    "fb",
+    "cb",
+    "social"
+]
+var userInterests = [];
+
+for(let i = 0; i < allInterests.length; i++){
+    let interest = allInterests[i]
+    document.getElementById(interest).onclick = function() {
+    if ( this.checked ) {
+        userInterests.push(interest);
+        console.log(userInterests)
+    } else {
+       let index =  userInterests.indexOf(interest)
+        userInterests.splice(index,1)
+    }
+};
+}
+
+
+</script>
 </html>
