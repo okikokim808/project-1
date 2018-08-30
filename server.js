@@ -35,7 +35,9 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
-
+app.get('/interests', (req, res) => {
+    res.sendFile(__dirname + '/views/interests.html');
+});
 app.post('/signup', (req, res) => {
     // console.log(req.body);
     db.User.find({email: req.body.email})
