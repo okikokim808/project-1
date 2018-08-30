@@ -1,7 +1,6 @@
 // require('app.env').config()
 
-
-var meetupEndpoint = "https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837"
+var meetupEndpoint = "https://api.meetup.com/2/categories?offset=0&format=json&photo-host=public&page=20&order=shortname&desc=false&sig_id=246475348&sig=d11081424ef2de73b07a3f59412de8cdca5420ba"
 
 $(document).ready(function(){
     $.ajax({
@@ -9,8 +8,7 @@ $(document).ready(function(){
         url: meetupEndpoint,
         success: onSuccess,
         error: function(response){
-            console.log('Error:' + JSON.stringify(
-                response))
+            console.log('Error:' + response)
         }
     })
 })//end doc.ready
