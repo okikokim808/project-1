@@ -1,7 +1,10 @@
 // require('app.env').config()
 
 // var meetupEndpoint = API-URL
-var meetupEndpoint = "https://api.meetup.com/topics/?name=cat&key=3b72576a30795b1d47673a2f3f2837"
+//tests with Dalton
+// var meetupEndpoint = "https://api.meetup.com/topics/?name=cat&key=3b72576a30795b1d47673a2f3f2837"
+
+var meetupEndpoint = "https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837"
 
 $(document).ready(function(){
     $.ajax({
@@ -15,8 +18,7 @@ $(document).ready(function(){
 })//end doc.ready
 
 function onSuccess(response){
-    console.log(response.results);
+    var meetupJSONResponse = JSON.stringify(response);
     
-    // console.log('success ' + meetupJSONResponse)
-    
+    console.log('success ' + meetupJSONResponse)
 }
