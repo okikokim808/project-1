@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Select Interests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="/styles/interest.css" /> -->
+    <!-- <script src="/scripts/interest.js"></script> -->
+</head>
+<body>
+    <form>
+        <div class ="grid-container">
+            <div class="grid-item">
+                <input type="checkbox" id ="tech" name="tech" value="tech"> Tech
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="family" name="family" value="family"> Family
+            </div>
+            <div class="grid-item">
+              <input type="checkbox" id ="hw" name="hw" value="hw"> Health and    Wellness
+            </div>
+            <div class="grid-item">
+                 <input type="checkbox" id ="sf" name="sf" value="sf"> Sports and Fitness
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="learning" name="learning" value="learning"> Learning
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="photo" name="photo" value="photo"> Photography 
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="fd" name="fd" value="fd"> Food and Drink
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="writing" name="writing" value="writing"> Writing
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="lc" name="lc" value="lc"> Learning and Culture
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="music" name="music" value="music"> Music
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="move" name="move" value="move"> Movement
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="lgbtq" name="lgbtq" value="lgbtq"> LGBTQ
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="film" name="film" value="film"> Film
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="sfg" name="sfg" value="sfg"> Sci-Fi and Games
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="beliefs" name="beliefs" value="beliefs"> Beliefs
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="art" name="art" value="art"> Art 
+            </div>
+            <div class="grid-item">   
+                <input type="checkbox" id ="bc" name="bc" value="bc"> Book Clubs
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="dance" name="dance" value="dance"> Dance
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="pets" name="pets" value="pets"> Pets
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="hc" name="hc" value="hc"> Hobbies and Crafts
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="fb" name="fb" value="fb"> Fashion and Beauty
+            </div>
+            <div class="grid-item">
+                <input type="checkbox" id ="" name="social" value="social"> Social
+            </div>
+             <div class="grid-item">
+                <input type="checkbox" id ="cb" name="cb" value="cb"> Career Business
+             </div>
+             <div class="grid-item">
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+    </form>
+   
+   
+</body>
+<script>
+
+var allInterests = [
+    "tech",
+    "family",
+    "hw",
+    "sf",
+    "learning",
+    "photo",
+    "fd",
+    "writing",
+    "lc",
+    "music",
+    "move",
+    "lgbtq",
+    "film",
+    "sfg",
+    "beliefs",
+    "art",
+    "bc",
+    "dance",
+    "pets",
+    "hc",
+    "fb",
+    "cb",
+    "social"
+]
+var userInterests = [];
+
+for(let i = 0; i < allInterests.length; i++){
+    let interest = allInterests[i]
+    document.getElementById(interest).onclick = function() {
+    if ( this.checked ) {
+        userInterests.push(interest);
+        console.log(userInterests)
+    } else {
+       let index =  userInterests.indexOf(interest)
+        userInterests.splice(index,1)
+    }
+};
+}
+
+
+</script>
+</html>
