@@ -18,7 +18,7 @@ app.use((req, res, next) => {
 const bcrypt = require('bcrypt');  
 //initialize database
 const db = require('./models');
-const jwt = require('jsonwebtoken')
+// const jwt = require('jsonwebtoken')
 
 app.use(express.static('public'));
 
@@ -30,17 +30,6 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-
-//OAUTH
-const logIN = "https://authorization-server.com/auth?response_type=code&client_id=CLIENT_ID&redirect_uri=https://www.meetup.com/"
-
-
-
-
-
-
-
-
 
 //html endpoints
 app.get('/', (req, res) => {
