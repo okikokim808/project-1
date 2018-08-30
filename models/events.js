@@ -9,4 +9,4 @@ const eventsSchema = mongoose.Schema({
     sourceURL: String
 })
 
-module.exports = mongoose.model('User', eventsSchema);
+module.exports = mongoose.model('Event', eventsSchema);
