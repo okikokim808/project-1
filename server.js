@@ -53,6 +53,10 @@ app.post('/protectedPage', verifyToken, (req, res) => {
 app.get('/interests', (req, res) => {
     res.sendFile(__dirname + '/views/interests.html');
 });
+app.get('/profile', (req, res) => {
+  res.sendFile(__dirname + '/views/profile.html');
+});
+
 
 app.put('/interests', (req, res) => {
   console.log(req.body);
