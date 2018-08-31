@@ -33,7 +33,7 @@ function fetchGroups(url, cb, data) {
 }
 
 $(document).ready(function(){
-
+    console.log('andrea!!!...... HI')
     $.ajax({
         dataType: 'jsonp',
         method: 'GET',
