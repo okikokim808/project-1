@@ -14,7 +14,7 @@ var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=
 
 
 //OAUTH
-
+console.log(localStorage)
 
 function fetchGroups(url, cb, data) {
 	if(!data) data = [];
