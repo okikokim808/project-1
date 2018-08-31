@@ -5,37 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Select Interests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="./scripts/interests.js"></script> -->
-</head>
-<body>
-    <div id ="formContainer">
-        <form>
-            <input type="checkbox" id ="tech" name="tech" value="tech"> Tech
-            <input type="checkbox" id ="family" name="family" value="family"> Family
-            <input type="checkbox" id ="hw" name="hw" value="hw"> Health and Wellness
-            <input type="checkbox" id ="sf" name="sf" value="sf"> Sports and Fitness
-            <input type="checkbox" id ="learning" name="learning" value="learning"> learning
-            <input type="checkbox" id ="photo" name="photo" value="photo"> Photo
-            <input type="checkbox" id ="fd" name="fd" value="fd"> Food and Drink
-            <input type="checkbox" id ="writing" name="writing" value="writing"> Writing
-            
-
-
-            <input type="submit" value="Submit">
-          </form>
-    </div>
-</body>
-=======
-    <!-- <link rel="stylesheet" href="/styles/interest.css" /> -->
-    <!-- <script src="/scripts/interest.js"></script> -->
-=======
-     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/interest.css" />
-    
->>>>>>> 741d6294d1cc76b99fc80c799f6cb78cab429c6f
 </head>
 <body>
     <h1>Select Your Interests:</h1>
@@ -116,68 +87,5 @@
         </div>
     </form>
 
-    <!-- <script>var allInterests = [
-        "tech",
-        "family",
-        "hw",
-        "sf",
-        "learning",
-        "photo",
-        "fd",
-        "writing",
-        "lc",
-        "music",
-        "move",
-        "lgbtq",
-        "film",
-        "sfg",
-        "beliefs",
-        "art",
-        "bc",
-        "dance",
-        "pets",
-        "hc",
-        "fb",
-        "cb",
-        "social"
-    ]
-    
-    var userInterests = [];
-    
-    for(let i = 0; i < allInterests.length; i++){
-        let interest = allInterests[i]
-        document.getElementById(interest).onclick = function(){
-        if ( this.checked ) {
-            userInterests.push(interest);
-            console.log(userInterests)
-        } else {
-           let index =  userInterests.indexOf(interest)
-            userInterests.splice(index,1)
-        }
-    };
-    }
-<<<<<<< HEAD
-};
-}
-
-
-</script>
->>>>>>> a3bdced0a8bc03bd204fdec3b92c9d2d4eb1bc6d
-=======
-    
-    $('form').submit(function(e) {
-        e.preventDefault()
-        console.log(userInterests)
-        // app.put({interests: userInterests})  
-        $.ajax({
-            method: "put",
-            url: "localhost:3000/interests",
-            data: {
-                username: 'jane'
-            }
-        })     
-    }) -->
-    <!-- </script> -->
 </body>
->>>>>>> 741d6294d1cc76b99fc80c799f6cb78cab429c6f
 </html>

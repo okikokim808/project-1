@@ -29,6 +29,9 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
+app.get('/profile', (req, res) => {
+    res.sendFile(__dirname + '/views/profile.html');
+   });
 app.post('/verify', verifyToken, (req, res) => {
     let verified= jwt.verify(req.token, 'kombucha')
     console.log("verified: ", verified)

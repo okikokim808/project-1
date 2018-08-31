@@ -53,3 +53,31 @@ function onSuccess(response){
     
     console.log('success ', meetupJSONResponse)
 }
+
+let loggedIn;
+let user; 
+
+checkForLogin();
+
+$('#signupForm').on('submit', submitSignup)
+
+$('#loginForm').on('submit', submitLogin)
+
+function checkForLogin(){
+    if(localStorage.length > 0){
+      let jwt = localStorage.token
+      $.ajax({
+        type: "POST", //GET, POST, PUT
+        url: '/verify',  
+        beforeSend: function (xhr) {   
+            xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
+        }
+      }).done(function (response) {
+        console.log(response)
+        user = { email: response.email, _id: response._id }
+        console.log("you can access variable user: " , user)
+      }).fail(function (err) {
+          console.log(err);
+      }); 
+  }
+}
