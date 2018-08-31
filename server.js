@@ -63,7 +63,8 @@ app.post('/signup', (req, res) => {
             const user = new db.User({
               email: req.body.email,
               password: hash,
-              username: req.body.username
+              username: req.body.username,
+              interests: req.body.interests
             });
             // we save our user
             user
