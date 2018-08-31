@@ -8,17 +8,17 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
+// app.use((req, res, next) => {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 
 //password encryption extension
 const bcrypt = require('bcrypt');  
 //initialize database
 const db = require('./models');
-// const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 
 app.use(express.static('public'));
 
@@ -35,9 +35,30 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
+app.get('/interests', (req, res) => {
+    res.sendFile(__dirname + '/views/interests.html');
+});
+
+app.put('/interests', (req, res) => {
+  console.log(req.body);
+
+  db.User.findOneAndUpdate({username: req.body.username},
+    {interests: req.body.interests})
+  .exec()
+  .then( user => {
+    console.log(user);
+    // user.interests = user.interests + req.body.interests
+  })
+
+  res.status(200).json({
+    message: "Sent OK"
+  })
+});
+
+
 
 app.post('/signup', (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     db.User.find({email: req.body.email})
     .exec()
     .then( user => {
@@ -52,6 +73,7 @@ app.post('/signup', (req, res) => {
       } else {
         // lets hash our plaintext password
         bcrypt.hash(req.body.password, 10, (err, hash) => {
+          console.log(hash);
           if(err){ 
             res.status(500).json({error: err})
           // we now have a successful hashed password
@@ -60,8 +82,11 @@ app.post('/signup', (req, res) => {
             const user = new db.User({
               email: req.body.email,
               password: hash,
-              username: req.body.username
+              username: req.body.username,
+              interests: req.body.interests
             });
+            console.log(JSON.stringify(user));
+
             // we save our user
             user
               .save()
