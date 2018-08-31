@@ -12,7 +12,8 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  interests:[String]
+  interests:[String],
+  meetupIDs:[Number]
 })
 
 module.exports = mongoose.model('User', userSchema);
