@@ -8,17 +8,13 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-// app.use((req, res, next) => {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// });
 
 //password encryption extension
 const bcrypt = require('bcrypt');  
 //initialize database
 const db = require('./models');
 const jwt = require('jsonwebtoken')
+const verifyWebToken = jwt.verify(req.token, 'kombucha')
 
 app.use(express.static('public'));
 
@@ -54,8 +50,6 @@ app.put('/interests', (req, res) => {
     message: "Sent OK"
   })
 });
-
-
 
 app.post('/signup', (req, res) => {
     console.log(req.body);
