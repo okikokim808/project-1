@@ -12,8 +12,7 @@ const userSchema = mongoose.Schema({
     required: true,
     unique: true
   },
-  interests: [String],
-  location: String
+  interests:[String]
 })
 
 module.exports = mongoose.model('User', userSchema);

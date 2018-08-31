@@ -39,6 +39,24 @@ app.get('/interests', (req, res) => {
     res.sendFile(__dirname + '/views/interests.html');
 });
 
+app.put('/interests', (req, res) => {
+  console.log(req.body);
+
+  db.User.findOneAndUpdate({username: req.body.username},
+    {interests: req.body.interests})
+  .exec()
+  .then( user => {
+    console.log(user);
+    // user.interests = user.interests + req.body.interests
+  })
+
+  res.status(200).json({
+    message: "Sent OK"
+  })
+});
+
+
+
 app.post('/signup', (req, res) => {
     console.log(req.body);
     db.User.find({email: req.body.email})
@@ -55,6 +73,7 @@ app.post('/signup', (req, res) => {
       } else {
         // lets hash our plaintext password
         bcrypt.hash(req.body.password, 10, (err, hash) => {
+          console.log(hash);
           if(err){ 
             res.status(500).json({error: err})
           // we now have a successful hashed password
@@ -66,6 +85,8 @@ app.post('/signup', (req, res) => {
               username: req.body.username,
               interests: req.body.interests
             });
+            console.log(JSON.stringify(user));
+
             // we save our user
             user
               .save()
