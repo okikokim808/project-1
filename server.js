@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-
 //password encryption extension
 const bcrypt = require('bcrypt');  
 //initialize database
@@ -33,6 +32,10 @@ app.get('/', (req, res) => {
 app.get('/interests', (req, res) => {
     res.sendFile(__dirname + '/views/interests.html');
 });
+app.get('/profile', (req, res) => {
+  res.sendFile(__dirname + '/views/profile.html');
+});
+
 
 app.put('/interests', (req, res) => {
   console.log(req.body);
