@@ -11,7 +11,8 @@ const userSchema = mongoose.Schema({
     type: String,
     required: true,
     unique: true
-  }
+  },
+  interests:[String]
 })
 
 module.exports = mongoose.model('User', userSchema);
