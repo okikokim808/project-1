@@ -13,7 +13,6 @@ const bcrypt = require('bcrypt');
 //initialize database
 const db = require('./models');
 const jwt = require('jsonwebtoken')
-const verifyWebToken = jwt.verify(req.token, 'kombucha')
 
 app.use(express.static('public'));
 
@@ -29,6 +28,24 @@ app.use(function(req, res, next) {
 //html endpoints
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
+});
+app.post('/verify', verifyToken, (req, res) => {
+    let verified= jwt.verify(req.token, 'kombucha')
+    console.log("verified: ", verified)
+    res.json(verified)
+})
+app.post('/protectedPage', verifyToken, (req, res) => {
+    console.log(req.token)
+    jwt.verify(req.token, 'waffles', (err, authData) => {
+      if(err) {
+        res.sendStatus(403);
+      } else {
+        res.json({
+          message: 'Post created',
+          authData
+        });
+      }
+    });
 });
 app.get('/interests', (req, res) => {
     res.sendFile(__dirname + '/views/interests.html');
@@ -128,7 +145,23 @@ app.post('/login', (req, res) => {
         res.status(500).json({err})
       })
 });
-
+function verifyToken(req, res, next) {
+    const bearerHeader = req.headers['authorization'];
+    console.log(bearerHeader)
+    //bearer check
+    if(typeof bearerHeader !== 'undefined'){
+      const bearer = bearerHeader.split(' ');
+      // Get token from array
+      const bearerToken = bearer[1];
+      // Set the token
+      req.token = bearerToken;
+      // Next middleware
+      next();
+    } else {
+      // Forbidden
+      res.sendStatus(403);
+    }
+  }
 //server
 app.listen(process.env.PORT || 3000, () => {
     console.log('Express server is up and running on http://localhost:3000/');

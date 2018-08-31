@@ -1,4 +1,10 @@
 // require('app.env').config()
+const signupSuccess = (json) => {
+    console.log(json)
+    let tokenJson = {token: json.token, user: json.result[0]}
+    console.log(tokenJson)
+    saveStuff(tokenJson)
+}
 let loggedIn;
 let user; 
 
@@ -11,7 +17,7 @@ function checkForLogin(){
         type: "POST", //GET, POST, PUT
         url: '/verify',  
         beforeSend: function (xhr) {   
-            xhr.setRequestHeader("Authorization", 'Bearer '+ localStorage.token);
+            xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
         console.log(response)
