@@ -40,7 +40,8 @@ $(document).ready(function(){
         url: meetupEndpoint,
         success: onSuccess,
         error: function(response){
-            console.log('Error:' + response)
+            console.log('Error:' + JSON.stringify(
+                response))
         }
     })
 })//end doc.ready
