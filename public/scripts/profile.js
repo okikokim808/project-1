@@ -14,33 +14,34 @@ var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=
 
 
 //OAUTH
-
+console.log(localStorage)
 
 function fetchGroups(url, cb, data) {
-	if(!data) data = [];
-	
-	$.ajax({
-		dataType:'json',
-		method:'get',
+    if(!data) data = [];
+    
+    $.ajax({
+        dataType:'json',
+        method:'get',
         url:meetupEndpoint,
         contentType: 'application/json',
-		success:function(result) {
-			console.log('back with ' + result.data.length +' results');
-			console.dir(result);
-			
-		}
-	});		
+        success:function(result) {
+            console.log('back with ' + result.data.length +' results');
+            console.dir(result);
+            
+        }
+    });        
 }
 
 $(document).ready(function(){
-    console.log('andrea!!!...... HI')
+
     $.ajax({
         dataType: 'jsonp',
         method: 'GET',
         url: meetupEndpoint,
         success: onSuccess,
         error: function(response){
-            console.log('Error:' + response)
+            console.log('Error:' + JSON.stringify(
+                response))
         }
     })
 })//end doc.ready
@@ -57,10 +58,6 @@ let loggedIn;
 let user; 
 
 checkForLogin();
-
-$('#signupForm').on('submit', submitSignup)
-
-$('#loginForm').on('submit', submitLogin)
 
 function checkForLogin(){
     if(localStorage.length > 0){

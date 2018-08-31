@@ -75,8 +75,8 @@ $('form').submit(function(e) {
         method: "put",
         url: "localhost:3000/interests",
         data: {
-            username: 'jane', //pass user in from index.html
-            id: 3 //get from intrests.html
+            username: 'jane', //pass user in from index.html, may use email instead
+            meetupId: 3 //get from intrests.html
         }
     })     
 })
