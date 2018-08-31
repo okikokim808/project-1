@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Select Interests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/interest.css" />
-    
+     <script src = "scripts/interests"></script>
 </head>
 <body>
     <h1>Select Your Interests:</h1>
@@ -87,60 +87,6 @@
             </div>
         </div>
     </form>
-
-    <!-- <script>var allInterests = [
-        "tech",
-        "family",
-        "hw",
-        "sf",
-        "learning",
-        "photo",
-        "fd",
-        "writing",
-        "lc",
-        "music",
-        "move",
-        "lgbtq",
-        "film",
-        "sfg",
-        "beliefs",
-        "art",
-        "bc",
-        "dance",
-        "pets",
-        "hc",
-        "fb",
-        "cb",
-        "social"
-    ]
-    
-    var userInterests = [];
-    
-    for(let i = 0; i < allInterests.length; i++){
-        let interest = allInterests[i]
-        document.getElementById(interest).onclick = function(){
-        if ( this.checked ) {
-            userInterests.push(interest);
-            console.log(userInterests)
-        } else {
-           let index =  userInterests.indexOf(interest)
-            userInterests.splice(index,1)
-        }
-    };
-    }
-    
-    $('form').submit(function(e) {
-        e.preventDefault()
-        console.log(userInterests)
-        // app.put({interests: userInterests})  
-        $.ajax({
-            method: "put",
-            url: "localhost:3000/interests",
-            data: {
-                username: 'jane'
-            }
-        })     
-    }) -->
-    <!-- </script> -->
+<a href = "/profile">Profile</a>
 </body>
 </html>
