@@ -13,6 +13,7 @@ const bcrypt = require('bcrypt');
 //initialize database
 const db = require('./models');
 const jwt = require('jsonwebtoken')
+const verifyWebToken = jwt.verify(req.token, 'kombucha')
 
 app.use(express.static('public'));
 
@@ -48,8 +49,6 @@ app.put('/interests', (req, res) => {
     message: "Sent OK"
   })
 });
-
-
 
 app.post('/signup', (req, res) => {
     console.log(req.body);
