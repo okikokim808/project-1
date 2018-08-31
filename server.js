@@ -14,7 +14,6 @@ const bcrypt = require('bcrypt');
 //initialize database
 const db = require('./models');
 const jwt = require('jsonwebtoken')
-const verifyWebToken = jwt.verify(req.token, 'kombucha')
 
 app.use(express.static('public'));
 
