@@ -6,14 +6,39 @@
 
     <title>Spontaneous Profile Page</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/profile.css" />
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-  
-</script>crossorigin="anonymous"></script>
-    <script src="scripts/profile.js"></script> -->
+   
+    <script src="scripts/profile.js" defer></script> 
 </head>
 <body>
+    <h1>Enter Location</h1>
+    <div class = "locationForm">
+        <div class="bg-img">
+            <form action="/profile" class="container" id="location">
+                    <label for="zip">Zip Code</label>
+                    <input type="text" name="zipCode" required>
+                    <button type="submit" class="btn" id="submit">Submit</button>
+            </form>
+    </div>
     <h1>Random Meetups</h1>
     <div id = "meetupList"></div>
-    <h1> test</h1>
+    <h1>Saved Meetups</h1>
+    <div class = "commentForm">
+        <div class="bg-img">
+            <form action="/profile" class="container" id="comments">
+                <h1>Comment</h1> 
+                <div id = "date"></div>
+
+                    <label for="name">Name</label>
+                    <input type="text" name="email" required>
+                
+                    <label for="comment">Comment</label>
+                    <input type="text"  name="comment" required>
+                
+                    <button type="submit" class="btn" id="submit">Submit</button>
+            </form>
+    </div>
 </body>
 </html>

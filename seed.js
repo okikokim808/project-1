@@ -30,7 +30,7 @@ db.User.deleteMany({}, (err, removeUser) =>{
     if(err){
         return console.log('Error')
     }
-    return console.log('Removed User from DB.')
+    return console.log('Remove User from DB.')
 })
 
 db.User.create(users,(err, users)=>{

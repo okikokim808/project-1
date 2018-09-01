@@ -17,7 +17,7 @@ const jwt = require('jsonwebtoken')
 app.use(express.static('public'));
 
 
-// allow cross origin requests (optional)
+// allow cross origin requests
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
