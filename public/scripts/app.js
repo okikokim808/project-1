@@ -1,10 +1,12 @@
 // require('app.env').config()
-
-
 var authorizationEndpoint ="https://secure.meetup.com/oauth2/authorize"
 var accessTokenEndpoint = "https://secure.meetup.com/oauth2/access"
 
 var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
+
+
+
+
 
 //OAUTH
 function fetchGroups(url, cb, data) {
@@ -17,8 +19,7 @@ function fetchGroups(url, cb, data) {
         contentType: 'application/json',
 		success:function(result) {
 			console.log('back with ' + result.data.length +' results');
-			console.dir(result);
-			
+			console.dir(result);	
 		}
 	});		
 }
