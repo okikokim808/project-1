@@ -8,15 +8,16 @@ const signupSuccess = (json) => {
 let loggedIn;
 let user; 
 
-var meetupEndpoint = "https://api.meetup.com/2/categories?offset=0&format=json&photo-host=public&page=20&order=shortname&desc=false&sig_id=246475348&sig=d11081424ef2de73b07a3f59412de8cdca5420ba"
+var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
 $(document).ready(function(){
     $.ajax({
+        dataType: 'json',
         type: 'GET',
         url: meetupEndpoint,
         success: onSuccess,
         error: function(response){
-            console.log('Error:' + response)
+            console.log('Error:', response)
         }
     })
 })//end doc.ready

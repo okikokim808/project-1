@@ -39,7 +39,7 @@ app.post('/verify', verifyToken, (req, res) => {
 })
 app.post('/protectedPage', verifyToken, (req, res) => {
     console.log(req.token)
-    jwt.verify(req.token, 'waffles', (err, authData) => {
+    jwt.verify(req.token, 'kombucha', (err, authData) => {
       if(err) {
         res.sendStatus(403);
       } else {
