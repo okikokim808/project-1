@@ -37,7 +37,7 @@ db.User.create(users,(err, users)=>{
     if(err){
         return console.log("Error:", err);
     }
-    console.log("New User Created", users._id)
+    console.log("New User Created", users)
     process.exit();
 })
 

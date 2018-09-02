@@ -41,6 +41,17 @@ app.post('/verify', verifyToken, (req, res) => {
     console.log("verified: ", verified)
     res.json(verified)
 })
+app.post('/profile', (req, res) => {
+  let newComment = req.body;
+    db.User.create(newComment,function(err,user){
+      if(err){
+        console.log("Index Error: " + err);
+        res.sendStatus(500);
+      }
+      res.json({user})
+  })
+})
+
 app.post('/protectedPage', verifyToken, (req, res) => {
     console.log(req.token)
     jwt.verify(req.token, 'kombucha', (err, authData) => {

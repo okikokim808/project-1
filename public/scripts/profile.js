@@ -22,8 +22,7 @@ $('#location').on('submit',function(e){
 
 })
 
-var date = new Date();
-$("#date").append(date)
+
 
 var meetupEndpoint = "https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&location=SAN+FRANCISCO+&zip=94158&page=20&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true"
 
@@ -41,13 +40,10 @@ $(document).ready(function(){
 })//end doc.ready
 
 function onSuccess(response){
-
     var meetupJSONResponse = response.data;
-
     console.log(meetupJSONResponse)
-
     let maxLen = meetupJSONResponse.length;
-    //calculate random numbers
+//calculate random numbers
         function randomNum(min,max,interval)
         {
             interval = 1;
@@ -103,8 +99,35 @@ function onSuccess(response){
     //add button to Saved Meetup
     $(".addBtn").on('click',function(e){
         e.preventDefault();
-        console.log("hi")
+        console.log("addBtn working")
         $("#savedMeetups").append()
     })
+
+    function createSucc(user){    
+        console.log(user.user._id)
+        window.location.reload()
+    }
+
+    $("#comSubmit").on('click',function(e){
+        e.preventDefault();
+        console.log("addBtn working")
+        var data = $(this.serialize);
+        $.ajax({
+            method:'POST',
+            url:"",
+            data:data,
+            success: createSuccess,
+            error: function(response){console.log('Error:' + JSON.stringify(response))}
+        })
+
+
+        var date = new Date();
+        $("#date").append(date)
+
+    })
+
+
+
+
 }
 
