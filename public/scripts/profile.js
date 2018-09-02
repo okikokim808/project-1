@@ -101,11 +101,36 @@ function onSuccess(response){
     
     console.log('success ', meetupJSONResponse)
 
+
+function addMeetup(num){
+    console.log("addBtn1 working")
+    $("#savedMeetup").append("<li> <h5>Name:</h5>" 
+    + meetupJSONResponse[num].name + "<br> " +
+    "<h5>Link: </h5>" +
+    meetupJSONResponse[num].link+ "<br></li>")
+    
+}
+
+
     //add button to Saved Meetup
-    $(".addBtn").on('click',function(e){
+    $("#btn1").on('click',function(e){
         e.preventDefault();
-        console.log("addBtn working")
-        $("#savedMeetup").append("savedMUList")
+        addMeetup(num1)
+        $(this).hide()
+        
+    })
+
+    $("#btn2").on('click',function(e){
+        e.preventDefault();
+        console.log("addBtn2 working")
+        addMeetup(num2)
+        $(this).hide()
+    })
+    $("#btn3").on('click',function(e){
+        e.preventDefault();
+        console.log("addBtn3 working")
+        addMeetup(num3)
+        $(this).hide()
     })
 
     function createSucc(user){    
