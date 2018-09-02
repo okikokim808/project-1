@@ -98,7 +98,6 @@ function onSuccess(response){
         "<h5>Description: </h5>" +meetupJSONResponse[num3].description+ "<br> "+
         "<button class = addBtn id=btn3 value=add>Add</button>" + "</li>")    
     
-
     console.log('success ', meetupJSONResponse)
 
     //add button to Saved Meetup

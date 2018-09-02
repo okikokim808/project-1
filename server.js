@@ -24,18 +24,10 @@ app.use(function(req, res, next) {
   });
 //html endpoints
 //APP.GET
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
-});
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/profile.html');
-   });
-app.get('/interests', (req, res) => {
-    res.sendFile(__dirname + '/views/interests.html');
-});
-app.get('/profile', (req, res) => {
-  res.sendFile(__dirname + '/views/profile.html');
-});
+app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
+app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
+app.get('/interests', (req, res) => {res.sendFile(__dirname + '/views/interests.html');});
+app.get('/profile', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
 app.get('/api', (req, res) => {
   fetchJson("https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837")
       .then(json => json.toJSON())
@@ -62,7 +54,6 @@ app.post('/protectedPage', verifyToken, (req, res) => {
       }
     });
 });
-
 
 app.post('/signup', (req, res) => {
     console.log(req.body);
@@ -102,8 +93,8 @@ app.post('/signup', (req, res) => {
       }
     })
 });
+
 app.post('/login', (req, res) => {
-    console.log("LOGIN CALLED");
     db.User.find({email: req.body.email})
       .exec()
       .then( users => {
@@ -120,7 +111,6 @@ app.post('/login', (req, res) => {
                 email: users[0].email,
                 _id: users[0]._id
               }, 
-              //CHANGE
               "kombucha",
               {
                 expiresIn: "5h"
@@ -144,8 +134,9 @@ app.post('/login', (req, res) => {
 });
 
 //APP.PUT
-app.put('/interests', (req, res) => {
-  console.log(req.body);
+app.put('/interests', (req, res) => {console.log(req.body);
+
+//DB CALLS
 
   db.User.findOneAndUpdate({username: req.body.username},
     {interests: req.body.interests})
