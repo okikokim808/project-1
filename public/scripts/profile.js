@@ -7,6 +7,22 @@ function createSucc(user){
     window.location.reload()
 }
 
+// function commentSucc(json){
+//     var comment = json;
+//     var userID = user._id;
+//     console.log("in success comment") 
+//     console.log(user._id)
+//     for(var i =0; i < users.length; i++){
+//         if(users[i]._id === userId){
+//             userId[i] = user;
+//             break;
+//         }
+//     }
+//     render()
+//     window.location.reload()
+//     // window.location.reload()
+// }
+
 $('#location').on('submit',function(e){
     e.preventDefault();
     var zipCodeData = $(this).serialize()
@@ -103,21 +119,21 @@ function onSuccess(response){
         $("#savedMeetups").append()
     })
 
-    function createSucc(user){    
-        console.log(user.user._id)
-        window.location.reload()
-    }
+  
 
-    $("#comSubmit").on('click',function(e){
+    $("#comSubmit").on('click','#comments',function(e){
         e.preventDefault();
-        console.log("addBtn working")
-        var data = $(this.serialize);
+        console.log("Added new comment")
+        var data = $(this);
+        console.log(data.val())
+        // var realUrl = `"/profile"+$(this).attr('user-id')+'/comments`
+        // 5b8b8ac7d8db7343db9d8860
         $.ajax({
             method:'POST',
-            url:"",
-            data:data,
-            success: createSuccess,
-            error: function(response){console.log('Error:' + JSON.stringify(response))}
+            url:"/profile/:userID",
+            data:$(this).serialize(),
+            success: createSucc,
+            error: function(response){console.log('Error:',JSON.stringify(response))}
         })
 
 

@@ -41,16 +41,25 @@ app.post('/verify', verifyToken, (req, res) => {
     console.log("verified: ", verified)
     res.json(verified)
 })
-app.post('/profile', (req, res) => {
-  let newComment = req.body;
-    db.User.create(newComment,function(err,user){
-      if(err){
-        console.log("Index Error: " + err);
-        res.sendStatus(500);
+
+ app.post('/profile/:user_id', function (req, res) {
+  var userId = req.params.user_id;
+  db.User.findById(userId)
+    .populate('user')
+    .exec(function(err, userFound) {
+      console.log(userFound);
+      if (err) {
+        res.status(500).json({error: err.message});
+      } else if (userFound === null) {
+        res.status(404).json({error: "User does not exist"});
+      } else {
+        userFound.comments.push(req.body);
+        userFound.save();
+        res.status(201).json(userFound);
       }
-      res.json({user})
-  })
-})
+    }
+  );
+});
 
 app.post('/protectedPage', verifyToken, (req, res) => {
     console.log(req.token)

@@ -2,7 +2,7 @@ const mongoose = require('mongoose'),
   Schema = mongoose.Schema
 
 const CommentSchema = new Schema({
-  interest: String,
+  name: String,
   content: String,
 })
 
@@ -20,7 +20,7 @@ const UserSchema = new Schema({
   },
   interests:[{type:String}],
   meetupIDs: [{type:String}],
-  comments:[CommentSchema]
+  comments:[CommentSchema] //embed in array
 })
 
 module.exports = mongoose.model('User', UserSchema);
