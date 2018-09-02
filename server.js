@@ -17,6 +17,7 @@ app.use(express.static('public'));
 // allow cross origin requests
 // https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
 app.use(function(req, res, next) {
+    res.header ("set Access-Control-Allow-Origin "*"");
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
