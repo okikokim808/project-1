@@ -7,22 +7,12 @@ function createSucc(user){
     window.location.reload()
 }
 
-// function commentSucc(json){
-//     var comment = json;
-//     var userID = user._id;
-//     console.log("in success comment") 
-//     console.log(user._id)
-//     for(var i =0; i < users.length; i++){
-//         if(users[i]._id === userId){
-//             userId[i] = user;
-//             break;
-//         }
-//     }
-//     render()
-//     window.location.reload()
-//     // window.location.reload()
-// }
+function commSucc(json){
+    allComments = json 
+    render()
+}
 
+//come back - will need to pass this 
 $('#location').on('submit',function(e){
     e.preventDefault();
     var zipCodeData = $(this).serialize()
@@ -35,7 +25,6 @@ $('#location').on('submit',function(e){
             console.log('error', JSON.stringify(response));
           }
     })
-
 })
 
 
@@ -116,34 +105,29 @@ function onSuccess(response){
     $(".addBtn").on('click',function(e){
         e.preventDefault();
         console.log("addBtn working")
-        $("#savedMeetups").append()
+        $("#savedMeetup").append("savedMUList")
     })
 
-  
+    function createSucc(user){    
+        console.log(user.user._id)
+        window.location.reload()
+    }
 
-    $("#comSubmit").on('click','#comments',function(e){
+    $('#comments').on('submit',function(e){
         e.preventDefault();
-        console.log("Added new comment")
-        var data = $(this);
-        console.log(data.val())
-        // var realUrl = `"/profile"+$(this).attr('user-id')+'/comments`
-        // 5b8b8ac7d8db7343db9d8860
+        var data = $(this).serialize();
+        console.log(data)
         $.ajax({
-            method:'POST',
-            url:"/profile/:userID",
-            data:$(this).serialize(),
-            success: createSucc,
-            error: function(response){console.log('Error:',JSON.stringify(response))}
+            method:'PUT',
+            url:"https://localhost:3000/profile",
+            data:data,
+            success: commSucc,
+            error: function(response){console.log('Error:' + JSON.stringify(response))}
         })
-
-
         var date = new Date();
         $("#date").append(date)
-
     })
-
-
-
+ 
 
 }
 

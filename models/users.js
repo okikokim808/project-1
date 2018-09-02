@@ -1,11 +1,6 @@
 const mongoose = require('mongoose'),
   Schema = mongoose.Schema
 
-const CommentSchema = new Schema({
-  name: String,
-  content: String,
-})
-
 const UserSchema = new Schema({
   email: { 
     type: String, 
@@ -20,7 +15,10 @@ const UserSchema = new Schema({
   },
   interests:[{type:String}],
   meetupIDs: [{type:String}],
-  comments:[CommentSchema] //embed in array
+  comments:[{
+    type:String,
+    default: '',
+  }] //embed in array
 })
 
 module.exports = mongoose.model('User', UserSchema);

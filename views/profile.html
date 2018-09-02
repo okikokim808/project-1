@@ -19,7 +19,7 @@
             <form action="/profile" class="container" id="location">
                     <label for="zip">Zip Code</label>
                     <input type="text" id ="zipCode" name="zipCode" required>
-                    <button type="submit" class="btn" id="submit">Submit</button>
+                    <button type="submit" class="btn" id="zipSubmit">Submit</button>
             </form>
     </div>
     <!-- might change to use User's name -->
@@ -32,24 +32,34 @@
         </div>
     </ul>
 
-    <h1>Saved Meetups</h1>   
+    <div id = "savedMeetup">
+        <h1>Saved Meetups</h1>
+        <div id = "savedMUList"></div>  
+    </div>
+    
     <div class = "commentForm">
         <div class="bg-img">
         <h1>Comment</h1> 
             <form id="comments">
                 <div id = "date"></div>
                     <label for="name">Name</label>
-                    <input type="text" name="email" required>
+                    <input type="text" name="name" required id ="name">
                     <label for="comment" name ="comment">Comment</label>
-                    <textarea type="text" rows ="9" columns ="10" name="comment" required></textarea>
+                    <textarea type="text" rows ="9" columns ="10" name="comment" required id="comment"></textarea>
                 
-                    <button name= "comSubmit" type="submit" class="btn" id="comSubmit">Submit</button>
+                    <button id="comSubBtn" name="comSubmit" type="submit" class="btn" >Submit</button>
             </form>
     </div>
 
     <div class = "allComments">
         <h3>Community Comments</h3>
-        <div id = "allCommentsDisp"></div>
+        <table>
+            <tr>
+                <th>Name</th>
+            </tr>
+                <tbody id = "allCommentsDisp">
+                </tbody>
+        </table>
     </div>
 
 </body>

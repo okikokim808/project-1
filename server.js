@@ -42,24 +42,30 @@ app.post('/verify', verifyToken, (req, res) => {
     res.json(verified)
 })
 
- app.post('/profile/:user_id', function (req, res) {
-  var userId = req.params.user_id;
-  db.User.findById(userId)
-    .populate('user')
-    .exec(function(err, userFound) {
-      console.log(userFound);
-      if (err) {
-        res.status(500).json({error: err.message});
-      } else if (userFound === null) {
-        res.status(404).json({error: "User does not exist"});
-      } else {
-        userFound.comments.push(req.body);
-        userFound.save();
-        res.status(201).json(userFound);
+app.post('/profile/:user_id/comments', function (req, res) {
+  {
+    let newComment = req.body.comments;
+    let name = req.body.name;
+
+    db.User.findOneAndUpdate({username:name}, newComment, (err, updatedComment)=>{
+      if (err){
+        return console.log(err)
       }
-    }
-  );
-});
+      else{
+        respond.JSON(updatedComment)
+      }
+    }) 
+
+    db.User.create(newComment, function(err,comment){
+      if (err){
+        console.log("index error:"+ err);
+        res.sendStatus(500)
+      }
+      res.json({comment})
+    })
+  }
+})
+
 
 app.post('/protectedPage', verifyToken, (req, res) => {
     console.log(req.token)
@@ -155,9 +161,7 @@ app.post('/login', (req, res) => {
 
 //APP.PUT
 app.put('/interests', (req, res) => {console.log(req.body);
-
 //DB CALLS
-
   db.User.findOneAndUpdate({username: req.body.username},
     {interests: req.body.interests})
   .exec()
@@ -165,7 +169,6 @@ app.put('/interests', (req, res) => {console.log(req.body);
     console.log(user);
     // user.interests = user.interests + req.body.interests
   })
-
   res.status(200).json({
     message: "Sent OK"
   })
