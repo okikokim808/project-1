@@ -160,13 +160,14 @@ app.post('/login', (req, res) => {
 });
 
 //APP.PUT
-app.put('/interests', (req, res) => {console.log(req.body);
+app.put('/interests', (req, res) => {
+  console.log("request", req.body.interests);
 //DB CALLS
   db.User.findOneAndUpdate({username: req.body.username},
     {interests: req.body.interests})
   .exec()
   .then( user => {
-    console.log(user);
+    console.log("user " + user);
     // user.interests = user.interests + req.body.interests
   })
   res.status(200).json({

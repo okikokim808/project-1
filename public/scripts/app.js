@@ -1,4 +1,5 @@
 // require('app.env').config()
+
 var authorizationEndpoint ="https://secure.meetup.com/oauth2/authorize"
 var accessTokenEndpoint = "https://secure.meetup.com/oauth2/access"
 
@@ -39,7 +40,7 @@ $(document).ready(function(){
 function onSuccess(response){
     var meetupJSONResponse = response.results;
     $('#meetupList').append(meetupJSONResponse[0].description);
-    console.log('success ', meetupJSONResponse)
+    // console.log('success ', meetupJSONResponse)
 }
 
 $('#signUpBtn').on('click',function(){ 
@@ -51,6 +52,9 @@ $('#signUpBtn').on('click',function(){
         interests:[]
     }
     
+    Cookies.set("username", $('#subName').val());
+    console.log("cookie", Cookies.get('username')); // => 'value') 
+
     $.ajax({
         method: "POST",
         url: "/signup",
@@ -61,7 +65,5 @@ $('#signUpBtn').on('click',function(){
         error: function(response){
             console.log("error", JSON.stringify(response))
         },
-        
-
     })
 })
