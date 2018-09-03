@@ -36,9 +36,8 @@ app.get('/userInterests', function getInterests(req,res){
     } else {
       console.log('user ' + user)
       res.json(user)
-
     }
-      
+
   })
 })
 
@@ -177,13 +176,14 @@ app.post('/login', (req, res) => {
 
 //APP.PUT
 app.put('/profile',(req,res)=>{
-  console.log("Put")
+  console.log("meetupIdANDREA",req.body.meetupId)
+  db.User.findOneAndUpdate({username:req.body.username},{meetupIDs:req.body.meetupId})
 })
 
 app.put('/interests', (req, res) => {
   console.log("request", req.body.interests);
 //DB CALLS
-  db.User.findOneAndUpdate({username: req.body.username},{meetupIDs: req.body.meetupId})
+  db.User.findOneAndUpdate({username: req.body.username},{interests: req.body.interests})
 
   db.User.findOneAndUpdate({username: req.body.username},
     {interests: req.body.interests})

@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     unique: true
   },
   interests:[{type:String}],
-  meetupIDs: [{type:String}],
+  meetupIDs: [{type:Number}],
   comments:[CommentSchema] //embed in array
 })
 

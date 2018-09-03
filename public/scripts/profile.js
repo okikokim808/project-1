@@ -118,7 +118,7 @@ function onSuccess(response){
         "<h5>Description: </h5>" +meetupJSONResponse[num3].description+ "<br> "+
         "<button class = addBtn id=btn3 value=add>Add</button>" + "</li>")    
     
-    console.log('success ', meetupJSONResponse)
+    // console.log('success ', meetupJSONResponse)
 
 
 function addMeetup(num){
@@ -147,21 +147,26 @@ function removeMeetup(){
 }
     //add button to Saved Meetup
     $("#btn1").on('click',function(e){
+        var username = Cookies.get("username")
+        console.log("username: ", username)
+        var meetupId = meetupJSONResponse[num1].id
+        console.log("meetupId: " + meetupId)
         e.preventDefault()
-        addMeetup(num1)
-        var meetupId = meetupJSONResponse[num1].id 
         $.ajax({
-            method:'PUT',
-            data: {meetupId: meetupId},
-            url: 'http://localhost:3000/profile',
-            success: console.log("New Meetup Added"),
-            error: console.log("Meetup Id not created")
+            method: "put",
+            url: "http://localhost:3000/profile",
+            data: {
+                username: username, 
+                meetupId: meetupId 
+            },
+            success:console.log("Success:"+username+meetupId),
+            error: console.log("put error")
+        })     
 
-            
-        })
-        $(this).hide()
-         
+        addMeetup(num1)
+        $(this).hide()   
     })
+
     $("#btn2").on('click',function(e){
         e.preventDefault();
         addMeetup(num2)
@@ -187,7 +192,7 @@ function removeMeetup(){
         console.log(data)
         $.ajax({
             method:'PUT',
-            url:"https://localhost:3000/profile",
+            url:"https://localhost:3000/profile/meetupId",
             data:data,
             success: commSucc,
             error: function(response){console.log('ErrorS:' + JSON.stringify(response))}
