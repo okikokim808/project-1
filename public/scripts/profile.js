@@ -12,6 +12,7 @@ function commSucc(json){
     render()
 }
 
+
 //come back - will need to pass this 
 $('#location').on('submit',function(e){
     e.preventDefault();
@@ -44,6 +45,10 @@ $(document).ready(function(){
     })
 })//end doc.ready
 
+//success calls
+const removeSuccess = response =>{
+    console.log("Meetup removed")
+}
 function onSuccess(response){
     var meetupJSONResponse = response.data;
     console.log(meetupJSONResponse)
@@ -71,9 +76,9 @@ function onSuccess(response){
                 else if(num2 === num3 && num2 === maxLen){
                     num2--
                 }
+
     //generate HTML
    console.log(num1,num2,num3)
-
     //List Meetups
     $("#list").append(
         "<li>" +
@@ -103,32 +108,42 @@ function onSuccess(response){
 
 
 function addMeetup(num){
-    console.log("addBtn1 working")
     $("#savedMeetup").append("<li> <h5>Name:</h5>" 
-    + meetupJSONResponse[num].name + "<br> " +
+    + meetupJSONResponse[num].name + "<br>" +
     "<h5>Link: </h5>" +
-    meetupJSONResponse[num].link+ "<br></li>")
-    
+    meetupJSONResponse[num].link+"<br>" +
+    "<button class=addComBtn value=attend>Comment</button>"+
+    "<button class=removeBtn value=delete>Remove</button>"
+    +"</li>")
 }
 
+function removeMeetup(){
+    $('#removeBtn').on('click', function(e){
+        
+        e.preventDefault();
+        console.log("remove clicked")
+        $.ajax({
+            method: "PUT",
+            url: `/profile/remove/${userId}/${meetupId}`,
+            success: removeSuccess,
+            error: error
+        })
 
+    })
+}
     //add button to Saved Meetup
     $("#btn1").on('click',function(e){
-        e.preventDefault();
+        e.preventDefault()
         addMeetup(num1)
-        $(this).hide()
-        
+        $(this).hide()  
     })
-
     $("#btn2").on('click',function(e){
         e.preventDefault();
-        console.log("addBtn2 working")
         addMeetup(num2)
         $(this).hide()
     })
     $("#btn3").on('click',function(e){
         e.preventDefault();
-        console.log("addBtn3 working")
         addMeetup(num3)
         $(this).hide()
     })
@@ -137,7 +152,10 @@ function addMeetup(num){
         console.log(user.user._id)
         window.location.reload()
     }
-
+    $('.addCommentBtn').on('click',function(e){
+        e.preventDefault;
+        console.log("commentClicked")
+    })
     $('#comments').on('submit',function(e){
         e.preventDefault();
         var data = $(this).serialize();
