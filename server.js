@@ -26,6 +26,22 @@ app.use(function(req, res, next) {
 //APP.GET
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
+app.get('/userInterests', function getInterests(req,res){
+  var username = req.query.username
+  console.log('username'+username)
+  db.User.findOne({username},(err,user)=>{
+    if(err){
+      console.log("error "+ err )
+      res.sendStatus(400)
+    } else {
+      console.log('user ' + user)
+      res.json(user)
+
+    }
+      
+  })
+})
+
 app.get('/interests', (req, res) => {res.sendFile(__dirname + '/views/interests.html');});
 app.get('/profile', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
 app.get('/api', (req, res) => {
@@ -59,7 +75,7 @@ app.post('/profile/:user_id/comments', function (req, res) {
     db.User.create(newComment, function(err,comment){
       if (err){
         console.log("index error:"+ err);
-        res.sendStatus(500)
+        res.sendStatus(400)
       }
       res.json({comment})
     })

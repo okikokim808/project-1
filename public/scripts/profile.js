@@ -33,6 +33,7 @@ $('#location').on('submit',function(e){
 var meetupEndpoint = "https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&location=SAN+FRANCISCO+&zip=94158&page=20&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true"
 
 $(document).ready(function(){
+    var username = Cookies.get("username")
     console.log('in profile.js')
     $.ajax({
         dataType: 'json',
@@ -41,6 +42,21 @@ $(document).ready(function(){
         success: onSuccess,
         error: function(response){
             console.log('Error:' + JSON.stringify(response))
+        }
+    })
+    console.log("username"+username)
+   
+    $.ajax({
+        dataType: 'json',
+        method:'GET',
+        data: {username: username},
+        url: "http://localhost:3000/userInterests",
+        success:function(response){
+            console.log("User Interests Retrieved")
+            console.log(JSON.stringify(response.interests))
+        },
+        error: function(response){
+            console.log('Error:' + JSON.stringify(response))   
         }
     })
 })//end doc.ready
