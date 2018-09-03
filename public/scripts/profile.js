@@ -149,7 +149,18 @@ function removeMeetup(){
     $("#btn1").on('click',function(e){
         e.preventDefault()
         addMeetup(num1)
-        $(this).hide()  
+        var meetupId = meetupJSONResponse[num1].id 
+        $.ajax({
+            method:'PUT',
+            data: {meetupId: meetupId},
+            url: 'http://localhost:3000/profile',
+            success: console.log("New Meetup Added"),
+            error: console.log("Meetup Id not created")
+
+            
+        })
+        $(this).hide()
+         
     })
     $("#btn2").on('click',function(e){
         e.preventDefault();

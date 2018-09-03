@@ -183,6 +183,8 @@ app.put('/profile',(req,res)=>{
 app.put('/interests', (req, res) => {
   console.log("request", req.body.interests);
 //DB CALLS
+  db.User.findOneAndUpdate({username: req.body.username},{meetupIDs: req.body.meetupId})
+
   db.User.findOneAndUpdate({username: req.body.username},
     {interests: req.body.interests})
   .exec()
