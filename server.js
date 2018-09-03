@@ -176,6 +176,10 @@ app.post('/login', (req, res) => {
 });
 
 //APP.PUT
+app.put('/profile',(req,res)=>{
+  console.log("Put")
+})
+
 app.put('/interests', (req, res) => {
   console.log("request", req.body.interests);
 //DB CALLS
