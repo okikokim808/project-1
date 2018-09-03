@@ -82,7 +82,7 @@ app.post('/protectedPage', verifyToken, (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-    console.log(req.body);
+    console.log('SignUp', req.body);
     db.User.find({email: req.body.email})
     .exec()
     .then( user => {

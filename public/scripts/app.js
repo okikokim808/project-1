@@ -42,11 +42,26 @@ function onSuccess(response){
     console.log('success ', meetupJSONResponse)
 }
 
-$('#signUpBtn').on('click',function(){
-    console.log('clicked')
-    console.log($('#subName').val())
-    console.log($('#subEmail').val())
-    console.log($('#subPass').val())
-    console.log($('#subVerifyPass').val())
+$('#signUpBtn').on('click',function(){ 
+    //TODO: SEE IF PASSWORDS MATCH 
+    let data = {
+        username: $('#subName').val(),
+        email: $('#subEmail').val(),
+        password:$('#subPass').val(),
+        interests:[]
+    }
+    
+    $.ajax({
+        method: "POST",
+        url: "/signup",
+        data: data,
+        success: function(response){
+            console.log(JSON.stringify(response))
+        },
+        error: function(response){
+            console.log("error", JSON.stringify(response))
+        },
+        
 
+    })
 })
