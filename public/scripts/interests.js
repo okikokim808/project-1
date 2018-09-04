@@ -1,30 +1,43 @@
 // require('app.env').config()
 const signupSuccess = (json) => {
-    console.log(json)
+    // console.log(json)
     let tokenJson = {token: json.token, user: json.result[0]}
-    console.log(tokenJson)
+    // console.log(tokenJson)
     saveStuff(tokenJson)
 }
 let loggedIn;
 let user; 
 
-var meetupEndpoint = "https://api.meetup.com/2/categories?offset=0&format=json&photo-host=public&page=20&order=shortname&desc=false&sig_id=246475348&sig=d11081424ef2de73b07a3f59412de8cdca5420ba"
+// var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
 $(document).ready(function(){
-    $.ajax({
-        type: 'GET',
-        url: meetupEndpoint,
-        success: onSuccess,
-        error: function(response){
-            console.log('Error:' + response)
-        }
+    console.log("cookie", Cookies.get('username')); // => 'value')
+
+    
+
+    $('#location').on('submit',function(e){
+        e.preventDefault();
+        var zipCodeData = $(this).serialize()
+        console.log(zipCodeData)
+        Cookies.set("zipCode", zipCodeData);
+        console.log("cookie", Cookies.get('zipCode')); // => 'value') 
     })
+
+    // $.ajax({
+    //     dataType: 'json',
+    //     type: 'GET',
+    //     url: meetupEndpoint,
+    //     success: onSuccess,
+    //     error: function(response){
+    //         console.log('Error:', response)
+    //     }
+    // })
 })//end doc.ready
 
-function onSuccess(response){
-    var meetupJSONResponse = JSON.stringify(response)
-    console.log('success ' + meetupJSONResponse)
-}
+// function onSuccess(response){
+//     var meetupJSONResponse = JSON.stringify(response)
+//     // console.log('success ' + meetupJSONResponse)
+// }
 
 var allInterests = [
     "tech",
@@ -58,10 +71,9 @@ for(let i = 0; i < allInterests.length; i++){
     let interest = allInterests[i]
     document.getElementById(interest).onclick = function(){
     if ( this.checked ) {
-        userInterests.push(interest);
-        console.log(userInterests)
+        userInterests.push($(this).attr("data-id") );
     } else {
-       let index =  userInterests.indexOf(interest)
+       let index =  userInterests.indexOf($(this).attr("data-id") )
         userInterests.splice(index,1)
     }
 };
@@ -69,14 +81,16 @@ for(let i = 0; i < allInterests.length; i++){
 
 $('form').submit(function(e) {
     e.preventDefault()
-    console.log(userInterests)
-    // app.put({interests: userInterests})  
+    console.log("cookie", Cookies.get('username')); // => 'value')
+    var username = Cookies.get('username') 
+    var id = $("data-id").val()
+    console.log("userInterests "+ userInterests)
     $.ajax({
         method: "put",
-        url: "localhost:3000/interests",
+        url: "http://localhost:3000/interests",
         data: {
-            username: 'jane', //pass user in from index.html, may use email instead
-            meetupId: 3 //get from intrests.html
+            username: username, //pass user in from index.html, may use email instead
+            interests: userInterests //get from intrests.html
         }
     })     
 })
