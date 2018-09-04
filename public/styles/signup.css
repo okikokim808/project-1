@@ -1,0 +1,32 @@
+.picture{
+    display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+background-repeat: no-repeat;
+background-size: cover;
+background-color: transparent;
+background-position: 50% 50%;
+background-image: url("../images/mountainman.jpg");
+min-height: 0px;
+height: 100vh;
+margin-top: 0;
+margin-bottom: 0px;
+}
+.container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-content: center;
+width: 300px;
+height: 400px;
+margin-bottom: 150px;
+}
+.container input{
+border-radius: 3px;
+padding: 10px;
+border: none;
+}
+.container .btn{
+margin-top: 10px;
+}

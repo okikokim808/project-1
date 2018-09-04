@@ -64,7 +64,7 @@ $('#signup').on('click', (e) => {
 
 function searchPage(json){
     console.log(json);
-    localStorage.setItem('token', json.signedJwt);
+    localStorage.setItem('token', json.token);
 }
 
 // $('#signupForm').on('submit', submitSignup)

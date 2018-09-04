@@ -29,14 +29,56 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/index.html');
 });
-app.get('/profile', (req, res) => {
-    res.sendFile(__dirname + '/views/profile.html');
-   });
+app.post('/', (req, res) => {
+    console.log("LOGIN CALLED");
+    db.User.find({email: req.body.email})
+      .exec()
+      .then( users => {
+        if(users.length < 1) {
+          return res.status(401).json({
+            message: "Email/Password incorrect"
+          })
+        }
+        bcrypt.compare(req.body.password, users[0].password, (err, match) => {
+          console.log(match)
+          if(err){return res.status(500).json({err})}
+          if(match){
+            const token = jwt.sign({
+                email: users[0].email,
+                _id: users[0]._id
+              }, 
+              //CHANGE
+              "kombucha",
+              {
+                expiresIn: "5h"
+              },
+            );
+            return res.status(200).json(
+              {
+                message: 'Auth successful',
+                token
+              }
+            )
+          } else {
+            res.status(401).json({message: "Email/Password incorrect"})
+          }
+        })
+      })
+      .catch( err => {
+        console.log(err);
+        res.status(500).json({err})
+      })
+});
+
 app.post('/verify', verifyToken, (req, res) => {
     let verified= jwt.verify(req.token, 'kombucha')
     console.log("verified: ", verified)
     res.json(verified)
 })
+
+app.get('/profile', (req, res) => {
+    res.sendFile(__dirname + '/views/profile.html');
+});
 app.post('/profile', verifyToken, (req, res) => {
     console.log(req.token)
     jwt.verify(req.token, 'kombucha', (err, authData) => {
@@ -50,10 +92,10 @@ app.post('/profile', verifyToken, (req, res) => {
       }
     });
 });
+
 app.get('/interests', (req, res) => {
     res.sendFile(__dirname + '/views/interests.html');
 });
-
 app.put('/interests', (req, res) => {
   console.log(req.body);
 
@@ -70,6 +112,9 @@ app.put('/interests', (req, res) => {
   })
 });
 
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/views/signup.html');
+});
 app.post('/signup', (req, res) => {
     console.log(req.body);
     db.User.find({email: req.body.email})
@@ -126,46 +171,8 @@ app.post('/signup', (req, res) => {
       }
     })
 });
-app.post('/login', (req, res) => {
-    console.log("LOGIN CALLED");
-    db.User.find({email: req.body.email})
-      .exec()
-      .then( users => {
-        if(users.length < 1) {
-          return res.status(401).json({
-            message: "Email/Password incorrect"
-          })
-        }
-        bcrypt.compare(req.body.password, users[0].password, (err, match) => {
-          console.log(match)
-          if(err){return res.status(500).json({err})}
-          if(match){
-            const token = jwt.sign({
-                email: users[0].email,
-                _id: users[0]._id
-              }, 
-              //CHANGE
-              "kombucha",
-              {
-                expiresIn: "5h"
-              },
-            );
-            return res.status(200).json(
-              {
-                message: 'Auth successful',
-                token
-              }
-            )
-          } else {
-            res.status(401).json({message: "Email/Password incorrect"})
-          }
-        })
-      })
-      .catch( err => {
-        console.log(err);
-        res.status(500).json({err})
-      })
-});
+
+
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     console.log(bearerHeader)
