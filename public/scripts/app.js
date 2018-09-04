@@ -1,42 +1,39 @@
 // require('app.env').config()
 
-// var meetupEndpoint = API-URL
-//tests with Dalton
-// var meetupEndpoint = "https://api.meetup.com/topics/?name=cat&key=3b72576a30795b1d47673a2f3f2837"
-
 var authorizationEndpoint ="https://secure.meetup.com/oauth2/authorize"
 var accessTokenEndpoint = "https://secure.meetup.com/oauth2/access"
 
+// var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
-var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
-
-// var meetupEndpoint = "https://api.meetup.com/find/groups?&photo-host=public&zip=94568&category=1&page=20&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
 checkForLogin();
 //OAUTH
-
-// console.log(localStorage)
-
 function fetchGroups(url, cb, data) {
 	if(!data) data = [];
 	
 	$.ajax({
 		dataType:'json',
+<<<<<<< HEAD
 		method:'GET',
         url:meetupEndpoint,
+=======
+		method:'get',
+        url:"meetupEndpoint",
+>>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
         contentType: 'application/json',
 		success:function(result) {
 			console.log('back with ' + result.data.length +' results');
-			console.dir(result);
-			
+			console.dir(result);	
 		}
 	});		
 }
 
-$(document).ready(function(){
+//move to Profile Page
 
+$(document).ready(function(){
+    console.log('in app.js')
     $.ajax({
-        dataType: 'jsonp',
+        dataType: 'json',
         method: 'GET',
         url: meetupEndpoint,
         success: onSuccess,
@@ -48,9 +45,10 @@ $(document).ready(function(){
 function onSuccess(response){
     var meetupJSONResponse = response.results;
     $('#meetupList').append(meetupJSONResponse[0].description);
-    console.log('success ', meetupJSONResponse)
+    // console.log('success ', meetupJSONResponse)
 }
 
+<<<<<<< HEAD
 $('#signup').on('click', (e) => {
     e.preventDefault();
     console.log('clicked');
@@ -115,3 +113,29 @@ function checkForLogin(){
       }
     })
   }
+=======
+$('#signUpBtn').on('click',function(){ 
+    //TODO: SEE IF PASSWORDS MATCH 
+    let data = {
+        username: $('#subName').val(),
+        email: $('#subEmail').val(),
+        password:$('#subPass').val(),
+        interests:[]
+    }
+    
+    Cookies.set("username", $('#subName').val());
+    console.log("cookie", Cookies.get('username')); // => 'value') 
+
+    $.ajax({
+        method: "POST",
+        url: "/signup",
+        data: data,
+        success: function(response){
+            console.log(JSON.stringify(response))
+        },
+        error: function(response){
+            console.log("error", JSON.stringify(response))
+        },
+    })
+})
+>>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
