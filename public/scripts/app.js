@@ -100,9 +100,8 @@ function checkForLogin(){
             xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
-        console.log(response)
+        // console.log(response)
         user = { email: response.email, _id: response._id }
-        console.log("you can access variable user: " , user)
         $('#message').text(`Welcome, ${ response.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);
