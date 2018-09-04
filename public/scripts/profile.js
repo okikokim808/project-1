@@ -6,7 +6,6 @@ function commSucc(json){
     allComments = json 
     render()
 }
-
 var zipCode = Cookies.get("zipCode")
 console.log("zipCode" + zipCode)
 
@@ -23,6 +22,10 @@ $(document).ready(function(){
 //     zipCode = zipCodeData
 //     console.log(zipCodeData)
 // })
+// for(let i=0; i<interest.length;i++){
+//     let interestVals = interest[i]
+//     console.log("interest: " +interest[i])
+// }
 
     $.ajax({
         dataType: 'json',
@@ -31,19 +34,14 @@ $(document).ready(function(){
         url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
-            console.log(JSON.stringify(response.interests))
-        
-            //parse user interests
-        var userInterests = JSON.stringify(response.interests)
-        var interest = JSON.parse(userInterests)
-        console.log(interest[1])
-
-        // for(let i=0; i<=userInterests.length;i++){
-        //     console.log(userInterests.length)
-           
-        // }
+            var userInterests = JSON.stringify(response.interests)
+            console.log(userInterests)
+            var parseInterests = JSON.parse(userInterests)
+                for(let i = 0; i < parseInterests.length; i++){
+                    var intID = parseInterests[i] //scoping
+                }
             $.ajax({
-                dataType: 'json',
+                dataType: 'json',   
                 method: 'GET',
                 url: meetupEndpoint,
                 success: onSuccess,
@@ -64,7 +62,8 @@ const removeSuccess = response =>{
 }
 function onSuccess(response){
     var meetupJSONResponse = response.data;
-    console.log(meetupJSONResponse)
+    console.log(meetupJSONResponse) //scoping
+    
     let maxLen = meetupJSONResponse.length;
 //calculate random numbers
         function randomNum(min,max,interval)
@@ -73,7 +72,8 @@ function onSuccess(response){
             let random = Math.floor(Math.random()*(max-0+interval)/interval);
             return random*interval+min;
         }
-            var num1 = randomNum(0,maxLen);
+           
+            var num1 = randomNum(0,maxLen); 
             var num2 = randomNum(0,maxLen); 
             var num3 = randomNum(0,maxLen);  
              //rule out
@@ -94,6 +94,10 @@ function onSuccess(response){
     
    console.log(num1,num2,num3)
    //comparison link: 
+
+   //if category id === parsed int
+
+  
    console.log(meetupJSONResponse[num1].category.id)
 
     //List Meetups
@@ -170,12 +174,9 @@ function addMeetup(num){
             success:console.log("Success:"+username+meetupId),
             error: function(response){console.log('Error:' + JSON.stringify(response))}
         })     
-
-        // $("#savedMeetup").append("<li>" + JSON.stringify(meetupJSONResponse[num1].name)+"</li>"+"<li>" + JSON.stringify(meetupJSONResponse[num1].link)+"</li>")
         addMeetup(num1)
         $(this).hide()   
     })
-
     $("#btn2").on('click',function(e){
         e.preventDefault();
         addMeetup(num2)
@@ -186,7 +187,6 @@ function addMeetup(num){
         addMeetup(num3)
         $(this).hide()
     })
-
     function createSucc(user){    
         console.log(user.user._id)
         window.location.reload()
@@ -209,7 +209,5 @@ function addMeetup(num){
         var date = new Date();
         $("#date").append(date)
     })
- 
-
 }
 
