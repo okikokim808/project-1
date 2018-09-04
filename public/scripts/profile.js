@@ -122,13 +122,17 @@ function onSuccess(response){
 
 
 function addMeetup(num){
-    $("#savedMeetup").append("<li> <h5>Name:</h5>" 
-    + meetupJSONResponse[num].name + "<br>" +
-    "<h5>Link: </h5>" +
-    meetupJSONResponse[num].link+"<br>" +
-    "<button class=addComBtn value=attend>Comment</button>"+
-    "<button class=removeBtn value=delete>Remove</button>"
-    +"</li>")
+    // $("#savedMeetup").append("<li> <h5>Name:</h5>" 
+    // + meetupJSONResponse[num].name + "<br>" +
+    // "<h5>Link: </h5>" +
+    // meetupJSONResponse[num].link+"<br>" +
+    // "<button class=addComBtn value=attend>Comment</button>"+
+    // "<button class=removeBtn value=delete>Remove</button>"
+    // +"</li>"  
+    //     )
+
+    // $("#savedMeetup").append("<li>" meetupId "</li>")
+
 }
 
 function removeMeetup(){
@@ -160,9 +164,10 @@ function removeMeetup(){
                 meetupId: meetupId 
             },
             success:console.log("Success:"+username+meetupId),
-            error: console.log("put error")
+            error: function(response){console.log('Error:' + JSON.stringify(response))}
         })     
 
+        $("#savedMeetup").append("<li>" + JSON.stringify(meetupJSONResponse[num1].name)+"</li>"+"<li>" + JSON.stringify(meetupJSONResponse[num1].link)+"</li>")
         addMeetup(num1)
         $(this).hide()   
     })
@@ -195,7 +200,7 @@ function removeMeetup(){
             url:"https://localhost:3000/profile/meetupId",
             data:data,
             success: commSucc,
-            error: function(response){console.log('ErrorS:' + JSON.stringify(response))}
+            error: function(response){console.log('Error:' + JSON.stringify(response))}
         })
         var date = new Date();
         $("#date").append(date)
