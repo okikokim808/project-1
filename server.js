@@ -235,7 +235,20 @@ app.post('/signup', (req, res) => {
 
 //APP.PUT
 app.put('/profile',(req,res)=>{
-  db.User.findOneAndUpdate({username:req.body.username},{meetupIDs:req.body.meetupId})
+  db.User.findOneAndUpdate({username:req.body.username},{meetupId:req.body.meetupId})//callback
+
+    db.User.findOneAndUpdate({username: req.body.username},
+      {meetupIDs: req.body.meetupId})
+    .exec()
+    .then( user => {
+      console.log("user " + user);
+      // user.interests = user.interests + req.body.interests
+    }),
+    res.status(200).json({
+      message: "Sent OK"
+    })
+  ,console.log("andrea",req.body)
+  
 })
 app.put('/profile/remove',(req,res)=>{
   console.log("ANDREA12",req.body.username)
@@ -244,6 +257,40 @@ app.put('/profile/remove',(req,res)=>{
   db.User.findOneAndRemove({username:username},{meetupIDs:meetupId})
 })
 
+// app.put('/profile/comment',(req,res)=>{
+//   console.log("request", req.body.comments);
+//   //DB CALLS
+//     db.User.findOneAndUpdate({username: req.body.username},{comments: req.body.comment})
+  
+//     db.User.findOneAndUpdate({username: req.body.username},
+//       {comments: req.body.comment})
+//     .exec()
+//     .then( user => {
+//       console.log("user " + user);
+//       // user.interests = user.interests + req.body.interests
+//     })
+//     res.status(200).json({
+//       message: "Sent OK"
+//     })
+// })
+
+app.put('/interests', (req, res) => {
+  console.log("request", req.body.interests);
+//DB CALLS
+  db.User.findOneAndUpdate({username: req.body.username},
+    {interests: req.body.interests})
+
+  db.User.findOneAndUpdate({username: req.body.username},
+    {interests: req.body.interests})
+  .exec()
+  .then( user => {
+    console.log("user " + user);
+    // user.interests = user.interests + req.body.interests
+  })
+  res.status(200).json({
+    message: "Sent OK"
+  })
+});
 //FUNCTIONS
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];

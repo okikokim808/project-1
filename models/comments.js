@@ -2,8 +2,8 @@ const mongoose = require('mongoose'),
     Schema = mongoose.Schema
 
 const CommentSchema = new Schema({
-    name: String,
     comment: String,
+    meetup: String,
 })
 
 const Comments = mongoose.model("Comment", CommentSchema)
