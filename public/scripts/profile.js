@@ -38,7 +38,7 @@ $(document).ready(function(){
             console.log("User Interests Retrieved")
             var userInterests = user.interests
             console.log(userInterests)
-            var parseInterests = JSON.parse(userInterests)
+            var parseInterests = userInterests
                 for(let i = 0; i < parseInterests.length; i++){
                     var intID = parseInterests[i] //scoping
                 }
