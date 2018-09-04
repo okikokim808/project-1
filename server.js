@@ -176,8 +176,14 @@ app.post('/login', (req, res) => {
 
 //APP.PUT
 app.put('/profile',(req,res)=>{
-  console.log("meetupIdANDREA",req.body.meetupId)
   db.User.findOneAndUpdate({username:req.body.username},{meetupIDs:req.body.meetupId})
+})
+
+app.put('/profile/remove',(req,res)=>{
+  console.log("ANDREA12",req.body.username)
+  let username = req.body.username;
+  let meetupId = req.body.meetupId;
+  db.User.findOneAndRemove({username:username},{meetupIDs:meetupId})
 })
 
 app.put('/interests', (req, res) => {

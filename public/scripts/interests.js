@@ -8,26 +8,36 @@ const signupSuccess = (json) => {
 let loggedIn;
 let user; 
 
-var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
+// var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
 $(document).ready(function(){
     console.log("cookie", Cookies.get('username')); // => 'value')
 
-    $.ajax({
-        dataType: 'json',
-        type: 'GET',
-        url: meetupEndpoint,
-        success: onSuccess,
-        error: function(response){
-            console.log('Error:', response)
-        }
+    
+
+    $('#location').on('submit',function(e){
+        e.preventDefault();
+        var zipCodeData = $(this).serialize()
+        console.log(zipCodeData)
+        Cookies.set("zipCode", zipCodeData);
+        console.log("cookie", Cookies.get('zipCode')); // => 'value') 
     })
+
+    // $.ajax({
+    //     dataType: 'json',
+    //     type: 'GET',
+    //     url: meetupEndpoint,
+    //     success: onSuccess,
+    //     error: function(response){
+    //         console.log('Error:', response)
+    //     }
+    // })
 })//end doc.ready
 
-function onSuccess(response){
-    var meetupJSONResponse = JSON.stringify(response)
-    // console.log('success ' + meetupJSONResponse)
-}
+// function onSuccess(response){
+//     var meetupJSONResponse = JSON.stringify(response)
+//     // console.log('success ' + meetupJSONResponse)
+// }
 
 var allInterests = [
     "tech",
