@@ -7,13 +7,12 @@ function commSucc(json){
     render()
 }
 var zipCode = Cookies.get("zipCode")
-console.log("zipCode" + zipCode)
+
 
 var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&zip=`+zipCode+`&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
 
 $(document).ready(function(){
     var username = Cookies.get("username")
-    console.log('in profile.js')
     console.log("username"+ username)
 
 // $('#location').on('submit',function(e){
@@ -34,12 +33,36 @@ $(document).ready(function(){
         url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
+            function randomIntrNum(min,max)
+            {
+                var random = 
+                Math.floor(Math.random() * (max - min)) + min;
+                console.log(random)
+                var parsedIntrs = JSON.parse(userInterests)
+                var randomIntr = parsedIntrs[random]
+                console.log(randomIntr)
+                return randomIntr
+               
+            }
+            
             var userInterests = JSON.stringify(response.interests)
-            console.log(userInterests)
+                console.log(userInterests)
             var parseInterests = JSON.parse(userInterests)
+           
+    
+            function randomInterest(userIntr){
                 for(let i = 0; i < parseInterests.length; i++){
                     var intID = parseInterests[i] //scoping
-                }
+                    console.log("id",intID)
+                } 
+                const maxNumIntr = parseInterests.length;
+                const minNumIntr = 0;
+                console.log("MAX",maxNumIntr)
+                console.log("MIN",minNumIntr)
+                randomIntrNum(maxNumIntr, minNumIntr)
+            }   
+            randomInterest(userInterests)
+                
             $.ajax({
                 dataType: 'json',   
                 method: 'GET',
@@ -62,7 +85,7 @@ const removeSuccess = response =>{
 }
 function onSuccess(response){
     var meetupJSONResponse = response.data;
-    console.log(meetupJSONResponse) //scoping
+    console.log(meetupJSONResponse[97].category.id) //scoping
     
     let maxLen = meetupJSONResponse.length;
 //calculate random numbers
@@ -72,7 +95,6 @@ function onSuccess(response){
             let random = Math.floor(Math.random()*(max-0+interval)/interval);
             return random*interval+min;
         }
-           
             var num1 = randomNum(0,maxLen); 
             var num2 = randomNum(0,maxLen); 
             var num3 = randomNum(0,maxLen);  
@@ -89,17 +111,11 @@ function onSuccess(response){
                 else if(num2 === num3 && num2 === maxLen){
                     num2--
                 }
-
     //generate HTML
-    
    console.log(num1,num2,num3)
    //comparison link: 
-
    //if category id === parsed int
-
-  
    console.log(meetupJSONResponse[num1].category.id)
-
     //List Meetups
     $("#list").append(
         "<li>" +
@@ -116,7 +132,7 @@ function onSuccess(response){
         "<h5>Link: </h5>" +meetupJSONResponse[num2].link+ "<br> " +
         "<h5>Description: </h5>" +meetupJSONResponse[num2].description+ "<br> "+
         "<button class = addBtn id=btn2 value=add>Add</button>" + "</li>") 
-        
+
     "<li>" +
         $("#list").append(
         "<h2>Meetup 3" + " " + "</h2>" +
@@ -151,9 +167,6 @@ function addMeetup(num){
             error: function(response){console.log('Error-Username NOT removed:' + JSON.stringify(response))}
         })
     $("."+num).hide()
-    
-    
-    
     })
 }
 
