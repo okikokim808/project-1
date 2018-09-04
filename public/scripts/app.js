@@ -56,9 +56,9 @@ $('#signup').on('click', (e) => {
     console.log('clicked');
     $.ajax({
         method: 'POST',
-        data: $('signupForm').serialize(),
-        success: searchPage(),
-        error: console.log(err)
+        data: json = $('signupForm').serialize(),
+        success: searchPage(json),
+        error: console.log(error)
     })
 })
 
@@ -67,13 +67,15 @@ function searchPage(json){
     localStorage.setItem('token', json.token);
 }
 
-// $('#signupForm').on('submit', submitSignup)
+$('#signupForm').on('submit', submitSignup)
 
 // $('#loginForm').on('submit', submitLogin)
 
 function checkForLogin(){
     if(localStorage.length > 0){
-      let jwt = localStorage.token
+      var json = $('signupForm').serialize();
+      let jwt = json.token
+      console.log(jwt)
       $.ajax({
         type: "POST", //GET, POST, PUT
         url: '/verify',  
@@ -89,27 +91,27 @@ function checkForLogin(){
       })
     } 
   }
-//   console.log(localStorage.token)
-//   function submitSignup(e){
-//     e.preventDefault();
-//     let userData = $(this).serialize()
-//     $.ajax({
-//       method: "POST",
-//       url: "/signup",
-//       data: userData,
-//       error: function signupError(e1,e2,e3) {
-//         console.log(e1);
-//         console.log(e2);
-//         console.log(e3);
-//       },
-//       success: function signupSuccess(json) {
-//         console.log(json);
-//         user = {email: json.result.email, _id: json.result._id}
-//         localStorage.token = json.signedJwt;
-//         $('#signupForm').toggleClass('show');
-//         $('#noToken').toggleClass('show');
-//         checkForLogin();
+  console.log($('signupForm').serialize.token)
+  function submitSignup(e){
+    e.preventDefault();
+    let userData = $(this).serialize()
+    $.ajax({
+      method: "POST",
+      url: "/signup",
+      data: userData,
+      error: function signupError(e1,e2,e3) {
+        console.log(e1);
+        console.log(e2);
+        console.log(e3);
+      },
+      success: function signupSuccess(json) {
+        console.log(json);
+        user = {email: json.result.email, _id: json.result._id}
+        localStorage.token = json.signedJwt;
+        $('#signupForm').toggleClass('show');
+        $('#noToken').toggleClass('show');
+        checkForLogin();
   
-//       }
-//     })
-//   }
+      }
+    })
+  }
