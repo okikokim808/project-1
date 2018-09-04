@@ -1,4 +1,5 @@
 // require('app.env').config()
+console.log('francisco');
 const signupSuccess = (json) => {
     console.log(json)
     let tokenJson = {token: json.token, user: json.result[0]}
@@ -22,7 +23,7 @@ $(document).ready(function(){
 })//end doc.ready
 
 function onSuccess(response){
-    var meetupJSONResponse = JSON.stringify(response)
+    var meetupJSONResponse = response
     console.log('success ' + meetupJSONResponse)
 }
 

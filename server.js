@@ -37,9 +37,9 @@ app.post('/verify', verifyToken, (req, res) => {
     console.log("verified: ", verified)
     res.json(verified)
 })
-app.post('/protectedPage', verifyToken, (req, res) => {
+app.post('/profile', verifyToken, (req, res) => {
     console.log(req.token)
-    jwt.verify(req.token, 'waffles', (err, authData) => {
+    jwt.verify(req.token, 'kombucha', (err, authData) => {
       if(err) {
         res.sendStatus(403);
       } else {
@@ -91,18 +91,36 @@ app.post('/signup', (req, res) => {
               username: req.body.username,
               interests: req.body.interests
             });
-            console.log(JSON.stringify(user));
-            user
-              .save()
-              .then( result =>
-                res.json({message: 'User created',
-                          user: result
+            db.User.create(userToCreate, (err, users) => {
+                if(err){console.log(err);}
+                jwt.sign(
+                    {username},
+                    'kombucha',
+                    {
+                        expiresIn: '1h'
+                    },
+                    (err, signedJwt) => {
+                        if(err){console.log(err)}
+                        res.status(200).json({
+                            message: 'User Created',
+                            username,
+                            signedJwt
                         })
-              )
-              .catch( err => {
-                console.log(err);
-                res.status(500).json({err})
-              })
+                    }
+                )
+            })
+            // console.log(JSON.stringify(user));
+            // user
+            //   .save()
+            //   .then( result =>
+            //     res.json({message: 'User created',
+            //               user: result
+            //             })
+            //   )
+            //   .catch( err => {
+            //     console.log(err);
+            //     res.status(500).json({err})
+            //   })
           }
         })
       }
