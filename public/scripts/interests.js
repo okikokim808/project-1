@@ -1,5 +1,6 @@
 // require('app.env').config()
-console.log('francisco');
+console.log(localStorage.token);
+console.log(localStorage.username)
 const signupSuccess = (json) => {
     // console.log(json)
     let tokenJson = {token: json.token, user: json.result[0]}
@@ -35,17 +36,10 @@ $(document).ready(function(){
     // })
 })//end doc.ready
 
-<<<<<<< HEAD
-function onSuccess(response){
-    var meetupJSONResponse = response
-    console.log('success ' + meetupJSONResponse)
-}
-=======
 // function onSuccess(response){
 //     var meetupJSONResponse = JSON.stringify(response)
 //     // console.log('success ' + meetupJSONResponse)
 // }
->>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
 
 var allInterests = [
     "tech",

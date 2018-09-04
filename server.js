@@ -114,7 +114,7 @@ app.post('/signup', (req, res) => {
           if(err){ 
             res.status(500).json({error: err})
           } else {
-            const user = new db.User({
+            const userToCreate = new db.User({
               email: req.body.email,
               password: hash,
               username: req.body.username,
@@ -123,18 +123,19 @@ app.post('/signup', (req, res) => {
             db.User.create(userToCreate, (err, users) => {
                 if(err){console.log(err);}
                 jwt.sign(
-                    {username},
+                    userToCreate,
                     'kombucha',
                     {
                         expiresIn: '1h'
                     },
                     (err, signedJwt) => {
-                        if(err){console.log(err)}
-                        res.status(200).json({
-                            message: 'User Created',
-                            username,
-                            signedJwt
-                        })
+                        if(err){console.log(err)
+                    }
+                    res.status(200).json({
+                        message: 'User Created',
+                        users,
+                        signedJwt
+                    })
                     }
                 )
             })
@@ -157,19 +158,33 @@ app.post('/signup', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
+    console.log("LOGIN CALLED");
+    // find the user in our user db
+    console.log("body", req.body)
     db.User.find({email: req.body.email})
+      .select('+password')
       .exec()
+      // if we have found a user
       .then( users => {
+        // if there is not email in our db
+        console.log("USERS: ", users);
         if(users.length < 1) {
           return res.status(401).json({
             message: "Email/Password incorrect"
           })
         }
+        // we have an email in our db that matches what they gave us
+        // now we have to compare their hashed password to what we have in our db
+        console.log("body", req.body);
+        console.log("hash", users[0].password);
         bcrypt.compare(req.body.password, users[0].password, (err, match) => {
           console.log(match)
-          if(err){return res.status(500).json({err})}
+          if(err){console.log(err);return res.status(500).json({err})}
           if(match){
-            const token = jwt.sign({
+            console.log("MATCH: ", match)
+            // create a json web token
+            const token = jwt.sign(
+              {
                 email: users[0].email,
                 _id: users[0]._id
               }, 
@@ -178,6 +193,7 @@ app.post('/login', (req, res) => {
                 expiresIn: "5h"
               },
             );
+            console.log("NEW TOKEN: ", token)
             return res.status(200).json(
               {
                 message: 'Auth successful',
@@ -185,15 +201,20 @@ app.post('/login', (req, res) => {
               }
             )
           } else {
+            console.log("NOT A MATCH")
             res.status(401).json({message: "Email/Password incorrect"})
           }
         })
+  
+  
       })
       .catch( err => {
+        console.log("OUTSIDE ERROR_")
         console.log(err);
         res.status(500).json({err})
       })
-});
+  })
+  
 
 //APP.PUT
 app.put('/profile',(req,res)=>{
