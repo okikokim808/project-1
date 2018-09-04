@@ -1,21 +1,22 @@
 // require('app.env').config()
-console.log(localStorage.token);
-console.log(localStorage.username)
-const signupSuccess = (json) => {
-    // console.log(json)
-    let tokenJson = {token: json.token, user: json.result[0]}
-    // console.log(tokenJson)
-    saveStuff(tokenJson)
-}
-let loggedIn;
-let user; 
+// console.log(localStorage.token);
+// const signupSuccess = (json) => {
+//     // console.log(json)
+//     let tokenJson = {token: json.token, user: json.result[0]}
+//     // console.log(tokenJson)
+//     saveStuff(tokenJson)
+// }
+ 
 
 // var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
-$(document).ready(function(){
-    console.log("cookie", Cookies.get('username')); // => 'value')
+    // let loggedIn;
+    // let user;
 
-    
+    checkForLogin();
+    // console.log("cookie", Cookies.get('username')); // => 'value')
+
+    // console.log(user);
 
     $('#location').on('submit',function(e){
         e.preventDefault();
@@ -23,7 +24,7 @@ $(document).ready(function(){
         console.log(zipCodeData)
         Cookies.set("zipCode", zipCodeData);
         console.log("cookie", Cookies.get('zipCode')); // => 'value') 
-    })
+
 
     // $.ajax({
     //     dataType: 'json',
@@ -74,25 +75,65 @@ for(let i = 0; i < allInterests.length; i++){
     document.getElementById(interest).onclick = function(){
     if ( this.checked ) {
         userInterests.push($(this).attr("data-id") );
-    } else {
-       let index =  userInterests.indexOf($(this).attr("data-id") )
-        userInterests.splice(index,1)
-    }
+    }// else {
+    //     let index =  userInterests.indexOf($(this).attr("data-id") )
+    //     userInterests.splice(index,1)
+    // }
 };
 }
 
 $('form').submit(function(e) {
     e.preventDefault()
-    console.log("cookie", Cookies.get('username')); // => 'value')
-    var username = Cookies.get('username') 
-    var id = $("data-id").val()
-    console.log("userInterests "+ userInterests)
+    // console.log()
+    // console.log("cookie", Cookies.get('username')); // => 'value')
+    // var username = Cookies.get('username') 
+    // var id = $("data-id").val()
+    // console.log("userInterests "+ userInterests)
     $.ajax({
-        method: "put",
-        url: "http://localhost:3000/interests",
+        type: "PUT",
+        url: "/interests",
         data: {
-            username: username, //pass user in from index.html, may use email instead
-            interests: userInterests //get from intrests.html
+            _id: user._id,
+            interests: userInterests
+        },
+        success: function(results){
+            console.log(results);
+        },
+        error: function(err){
+            console.log(err);
         }
-    })     
+    })
+    // $.ajax({
+    //     method: "put",
+    //     url: "http://localhost:3000/interests",
+    //     data: {
+    //         username: username, //pass user in from index.html, may use email instead
+    //         interests: userInterests //get from intrests.html
+    //     }
+    // })     
 })
+var item;
+function checkForLogin(){
+    if(localStorage.length > 0){
+      let jwt = localStorage.token
+      $.ajax({
+        type: "POST", //GET, POST, PUT
+        url: '/verify',  
+        beforeSend: function (xhr) {   
+            xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
+        }
+      }).done(function (response) {
+        // console.log(response)
+        user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
+        item = user;
+        console.log(response);
+        console.log(user);
+        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
+      }).fail(function (err) {
+          console.log(err);
+      });
+      $('#yesToken').toggleClass('show');
+    } else {
+      $('#noToken').toggleClass('show');
+    }
+}

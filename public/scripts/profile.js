@@ -1,3 +1,4 @@
+checkForLogin();
 function createSucc(user){    
     console.log(user.user._id)
     window.location.reload()
@@ -30,11 +31,12 @@ $(document).ready(function(){
     $.ajax({
         dataType: 'json',
         method:'GET',
+        url: '/interests',
         data: {username: username},
         url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
-            var userInterests = JSON.stringify(response.interests)
+            var userInterests = user.interests
             console.log(userInterests)
             var parseInterests = JSON.parse(userInterests)
                 for(let i = 0; i < parseInterests.length; i++){
@@ -211,3 +213,26 @@ function addMeetup(num){
     })
 }
 
+function checkForLogin(){
+    if(localStorage.length > 0){
+      let jwt = localStorage.token
+      $.ajax({
+        type: "POST", //GET, POST, PUT
+        url: '/verify',  
+        beforeSend: function (xhr) {   
+            xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
+        }
+      }).done(function (response) {
+        console.log(response)
+        user = { email: response.email, interests: response.interests, _id: response._id }
+        item = user;
+        console.log(user);
+        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
+      }).fail(function (err) {
+          console.log(err);
+      });
+      $('#yesToken').toggleClass('show');
+    } else {
+      $('#noToken').toggleClass('show');
+    }
+}

@@ -26,6 +26,7 @@ app.use(function(req, res, next) {
 //APP.GET
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
+
 app.get('/userInterests', function getInterests(req,res){
   var username = req.query.username
   console.log('username'+username)
@@ -48,113 +49,6 @@ app.get('/api', (req, res) => {
       .then(json => json.toJSON())
       .then(json => res.json(json))
       .catch(err => console.log("ERROR: ", err));
-  });
-
-//APP.POST
-app.post('/verify', verifyToken, (req, res) => {
-    let verified= jwt.verify(req.token, 'kombucha')
-    console.log("verified: ", verified)
-    res.json(verified)
-})
-
-app.post('/profile/:user_id/comments', function (req, res) {
-  {
-    let newComment = req.body.comments;
-    let name = req.body.name;
-
-    db.User.findOneAndUpdate({username:name}, newComment, (err, updatedComment)=>{
-      if (err){
-        return console.log(err)
-      }
-      else{
-        respond.JSON(updatedComment)
-      }
-    }) 
-
-    db.User.create(newComment, function(err,comment){
-      if (err){
-        console.log("index error:"+ err);
-        res.sendStatus(400)
-      }
-      res.json({comment})
-    })
-  }
-})
-
-
-app.post('/protectedPage', verifyToken, (req, res) => {
-    console.log(req.token)
-    jwt.verify(req.token, 'kombucha', (err, authData) => {
-      if(err) {
-        res.sendStatus(403);
-      } else {
-        res.json({
-          message: 'Post created',
-          authData
-        });
-      }
-    });
-});
-
-app.get('/signup', (req, res) => {
-    res.sendFile(__dirname + '/views/signup.html');
-});
-app.post('/signup', (req, res) => {
-    console.log('SignUp', req.body);
-    db.User.find({email: req.body.email})
-    .exec()
-    .then( user => {
-      if (user.length >= 1) {
-        return res.status(409).json({
-          message: "email already exists"
-        })
-      } else {
-        bcrypt.hash(req.body.password, 10, (err, hash) => {
-          console.log(hash);
-          if(err){ 
-            res.status(500).json({error: err})
-          } else {
-            const userToCreate = new db.User({
-              email: req.body.email,
-              password: hash,
-              username: req.body.username,
-              interests: req.body.interests
-            });
-            db.User.create(userToCreate, (err, users) => {
-                if(err){console.log(err);}
-                jwt.sign(
-                    userToCreate,
-                    'kombucha',
-                    {
-                        expiresIn: '1h'
-                    },
-                    (err, signedJwt) => {
-                        if(err){console.log(err)
-                    }
-                    res.status(200).json({
-                        message: 'User Created',
-                        users,
-                        signedJwt
-                    })
-                    }
-                )
-            })
-            // console.log(JSON.stringify(user));
-            // user
-            //   .save()
-            //   .then( result =>
-            //     res.json({message: 'User created',
-            //               user: result
-            //             })
-            //   )
-            //   .catch( err => {
-            //     console.log(err);
-            //     res.status(500).json({err})
-            //   })
-          }
-        })
-      }
-    })
 });
 
 app.post('/login', (req, res) => {
@@ -186,7 +80,8 @@ app.post('/login', (req, res) => {
             const token = jwt.sign(
               {
                 email: users[0].email,
-                _id: users[0]._id
+                _id: users[0]._id,
+                interests: users[0].interests
               }, 
               "kombucha",
               {
@@ -213,14 +108,135 @@ app.post('/login', (req, res) => {
         console.log(err);
         res.status(500).json({err})
       })
+})
+
+//APP.POST
+app.post('/verify', verifyToken, (req, res) => {
+    let verified = jwt.verify(req.token, 'kombucha')
+    console.log("verified: ", verified)
+    res.json(verified)
+})
+
+app.post('/profile/:user_id/comments', function (req, res) {
+  {
+    let newComment = req.body.comments;
+    let name = req.body.name;
+
+    db.User.findOneAndUpdate({username:name}, newComment, (err, updatedComment)=>{
+      if (err){
+        return console.log(err)
+      }
+      else{
+        respond.JSON(updatedComment)
+      }
+    }) 
+
+    db.User.create(newComment, function(err,comment){
+      if (err){
+        console.log("index error:"+ err);
+        res.sendStatus(400)
+      }
+      res.json({comment})
+    })
+  }
+})
+
+app.put('/interests', (req, res) => {
+  console.log("request", req.body.interests);
+//DB CALLS
+  console.log(req.body);
+  db.User.findOneAndUpdate({_id: req.body._id},{interests: req.body.interests})
+  .exec()
+  .then( user => {
+    // console.log("user " + req.body.user);
+    user.interests = req.body.interests
   })
-  
+  res.status(200).json({
+    message: "Sent OK"
+  })
+});
+
+app.post('/interests', verifyToken, (req, res) => {
+    console.log(req.token)
+    jwt.verify(req.token, 'kombucha', (err, authData) => {
+      if(err) {
+        res.sendStatus(403);
+      } else {
+        res.json({
+          message: 'Post created',
+          authData
+        });
+      }
+    });
+});
+
+app.get('/signup', (req, res) => {
+    res.sendFile(__dirname + '/views/signup.html');
+});
+app.post('/signup', (req, res) => {
+    console.log('SignUp', req.body);
+    db.User.find({email: req.body.email})
+    .select('+password')
+    .exec()
+    .then( user => {
+      if (user.length >= 1) {
+        return res.status(409).json({
+          message: "email already exists"
+        })
+      } else {
+        bcrypt.hash(req.body.password, 10, (err, hash) => {
+          console.log(hash);
+          if(err){ 
+            res.status(500).json({error: err})
+          } else {
+            const userToCreate = new db.User({
+              email: req.body.email,
+              password: hash,
+              username: req.body.username,
+              interests: req.body.interests
+            });
+            db.User.create(userToCreate, (err, users) => {
+                if(err){console.log(err);}
+                const token = jwt.sign(
+                    {users},
+                    'kombucha',
+                    {
+                        expiresIn: '1h'
+                    },
+                    (err, token) => {
+                        if(err){res.json(err)}
+                    res.status(200).json({
+                        message: 'User Created',
+                        users,
+                        token
+                    })
+                    }
+                )
+            })
+            // console.log(JSON.stringify(user));
+            // user
+            //   .save()
+            //   .then( result =>
+            //     res.json({message: 'User created',
+            //               user: result
+            //             })
+            //   )
+            //   .catch( err => {
+            //     console.log(err);
+            //     res.status(500).json({err})
+            //   })
+          }
+        })
+      }
+    })
+});
+
+
 
 //APP.PUT
 app.put('/profile',(req,res)=>{
   db.User.findOneAndUpdate({username:req.body.username},{meetupIDs:req.body.meetupId})
 })
-
 app.put('/profile/remove',(req,res)=>{
   console.log("ANDREA12",req.body.username)
   let username = req.body.username;
@@ -228,22 +244,6 @@ app.put('/profile/remove',(req,res)=>{
   db.User.findOneAndRemove({username:username},{meetupIDs:meetupId})
 })
 
-app.put('/interests', (req, res) => {
-  console.log("request", req.body.interests);
-//DB CALLS
-  db.User.findOneAndUpdate({username: req.body.username},{interests: req.body.interests})
-
-  db.User.findOneAndUpdate({username: req.body.username},
-    {interests: req.body.interests})
-  .exec()
-  .then( user => {
-    console.log("user " + user);
-    // user.interests = user.interests + req.body.interests
-  })
-  res.status(200).json({
-    message: "Sent OK"
-  })
-});
 //FUNCTIONS
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
@@ -261,7 +261,7 @@ function verifyToken(req, res, next) {
       // Forbidden
       res.sendStatus(403);
     }
-  }
+}
 //server
 app.listen(process.env.PORT || 3000, () => {
     console.log('Express server is up and running on http://localhost:3000/');

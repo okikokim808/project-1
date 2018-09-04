@@ -62,11 +62,13 @@ $('#signUpBtn').on('click',function(e){
         url: "/signup",
         data: data,
         success: function(response){
-            console.log(JSON.stringify(response))
+            console.log(response)
+            localStorage.token = response.token
+            checkForLogin();
+            window.location.replace('/interests')
         },
         error: console.log(data)
     })
-    window.location.replace('/interests')
 })
 $('#loginForm').on('submit',function(e){
     e.preventDefault();
@@ -81,10 +83,9 @@ $('#loginForm').on('submit',function(e){
       console.log("LOG IN SUCCESSFUL")
       console.log(json);
       localStorage.token = json.token;
-      $('#noToken').toggleClass('show')
-      $('#loginForm').toggleClass('show')
       checkForLogin();
       console.log(localStorage.token);
+      console.log(localStorage)
       window.location.replace('/profile');
     }).fail(function signupError(e1,e2,e3) {
       console.log(e2);
@@ -102,7 +103,7 @@ function checkForLogin(){
       }).done(function (response) {
         // console.log(response)
         user = { email: response.email, _id: response._id }
-        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
+        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);
       });
