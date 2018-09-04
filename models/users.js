@@ -14,14 +14,9 @@ const UserSchema = new Schema({
     required: true,
     unique: true
   },
-<<<<<<< HEAD
-  interests:[String],
-  meetupIDs:[Number]
-=======
   interests:[{type:String}],
   meetupIDs: [{type:Number}],
   comments:[CommentSchema] //embed in array
->>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
 })
 
 module.exports = mongoose.model('User', UserSchema);

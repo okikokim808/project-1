@@ -23,52 +23,6 @@ app.use(function(req, res, next) {
     next();
   });
 //html endpoints
-<<<<<<< HEAD
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/views/index.html');
-});
-app.post('/', (req, res) => {
-    console.log("LOGIN CALLED");
-    db.User.find({email: req.body.email})
-      .exec()
-      .then( users => {
-        if(users.length < 1) {
-          return res.status(401).json({
-            message: "Email/Password incorrect"
-          })
-        }
-        bcrypt.compare(req.body.password, users[0].password, (err, match) => {
-          console.log(match)
-          if(err){return res.status(500).json({err})}
-          if(match){
-            const token = jwt.sign({
-                email: users[0].email,
-                _id: users[0]._id
-              }, 
-              //CHANGE
-              "kombucha",
-              {
-                expiresIn: "5h"
-              },
-            );
-            return res.status(200).json(
-              {
-                message: 'Auth successful',
-                token
-              }
-            )
-          } else {
-            res.status(401).json({message: "Email/Password incorrect"})
-          }
-        })
-      })
-      .catch( err => {
-        console.log(err);
-        res.status(500).json({err})
-      })
-});
-
-=======
 //APP.GET
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
@@ -97,19 +51,12 @@ app.get('/api', (req, res) => {
   });
 
 //APP.POST
->>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
 app.post('/verify', verifyToken, (req, res) => {
     let verified= jwt.verify(req.token, 'kombucha')
     console.log("verified: ", verified)
     res.json(verified)
 })
 
-<<<<<<< HEAD
-app.get('/profile', (req, res) => {
-    res.sendFile(__dirname + '/views/profile.html');
-});
-app.post('/profile', verifyToken, (req, res) => {
-=======
 app.post('/profile/:user_id/comments', function (req, res) {
   {
     let newComment = req.body.comments;
@@ -136,7 +83,6 @@ app.post('/profile/:user_id/comments', function (req, res) {
 
 
 app.post('/protectedPage', verifyToken, (req, res) => {
->>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
     console.log(req.token)
     jwt.verify(req.token, 'kombucha', (err, authData) => {
       if(err) {
@@ -149,28 +95,6 @@ app.post('/protectedPage', verifyToken, (req, res) => {
       }
     });
 });
-<<<<<<< HEAD
-
-app.get('/interests', (req, res) => {
-    res.sendFile(__dirname + '/views/interests.html');
-});
-app.put('/interests', (req, res) => {
-  console.log(req.body);
-
-  db.User.findOneAndUpdate({username: req.body.username},
-    {interests: req.body.interests})
-  .exec()
-  .then( user => {
-    console.log(user);
-    // user.interests = user.interests + req.body.interests
-  })
-
-  res.status(200).json({
-    message: "Sent OK"
-  })
-});
-=======
->>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
 
 app.get('/signup', (req, res) => {
     res.sendFile(__dirname + '/views/signup.html');
@@ -232,9 +156,6 @@ app.post('/signup', (req, res) => {
     })
 });
 
-<<<<<<< HEAD
-
-=======
 app.post('/login', (req, res) => {
     db.User.find({email: req.body.email})
       .exec()
@@ -303,7 +224,6 @@ app.put('/interests', (req, res) => {
   })
 });
 //FUNCTIONS
->>>>>>> 59778e7726ca5b23590aa9ec156fe90c349765bb
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     console.log(bearerHeader)
