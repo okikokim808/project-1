@@ -3,13 +3,18 @@ function createSucc(user){
     window.location.reload()
 }
 function commSucc(json){
-    allComments = json 
-    render()
+    console.log("ANDREA")
+    allComments = json
+    $("#comDisp").append(data)
+    console.log(data)
 }
 var zipCode = Cookies.get("zipCode")
+console.log(zipCode)
 
 
-var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&zip=`+zipCode+`&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
+
+//&category changes for list
+var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&zip=${zipCode}&offset=0&category=2&format=json&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
 
 $(document).ready(function(){
     var username = Cookies.get("username")
@@ -33,23 +38,20 @@ $(document).ready(function(){
         url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
+            var userInterests = JSON.stringify(response.interests)
+                console.log(userInterests)
+            var parseInterests = JSON.parse(userInterests)
+
             function randomIntrNum(min,max)
             {
                 var random = 
                 Math.floor(Math.random() * (max - min)) + min;
-                console.log(random)
+                console.log("random",random)
                 var parsedIntrs = JSON.parse(userInterests)
                 var randomIntr = parsedIntrs[random]
-                console.log(randomIntr)
+                console.log("randIntr",randomIntr)
                 return randomIntr
-               
             }
-            
-            var userInterests = JSON.stringify(response.interests)
-                console.log(userInterests)
-            var parseInterests = JSON.parse(userInterests)
-           
-    
             function randomInterest(userIntr){
                 for(let i = 0; i < parseInterests.length; i++){
                     var intID = parseInterests[i] //scoping
@@ -57,8 +59,6 @@ $(document).ready(function(){
                 } 
                 const maxNumIntr = parseInterests.length;
                 const minNumIntr = 0;
-                console.log("MAX",maxNumIntr)
-                console.log("MIN",minNumIntr)
                 randomIntrNum(maxNumIntr, minNumIntr)
             }   
             randomInterest(userInterests)
@@ -85,9 +85,10 @@ const removeSuccess = response =>{
 }
 function onSuccess(response){
     var meetupJSONResponse = response.data;
-    console.log(meetupJSONResponse[97].category.id) //scoping
-    
     let maxLen = meetupJSONResponse.length;
+    console.log("meetupRes",meetupJSONResponse) //scoping
+//loop through response, match with random    
+    
 //calculate random numbers
         function randomNum(min,max,interval)
         {
@@ -115,7 +116,7 @@ function onSuccess(response){
    console.log(num1,num2,num3)
    //comparison link: 
    //if category id === parsed int
-   console.log(meetupJSONResponse[num1].category.id)
+   console.log("catID num1",meetupJSONResponse[num1].category.id)
     //List Meetups
     $("#list").append(
         "<li>" +
@@ -211,16 +212,17 @@ function addMeetup(num){
     $('#comments').on('submit',function(e){
         e.preventDefault();
         var data = $(this).serialize();
-        console.log(data)
+        console.log(data);
         $.ajax({
             method:'PUT',
-            url:"https://localhost:3000/profile/meetupId",
+            url:"/profile/comment",
             data:data,
             success: commSucc,
             error: function(response){console.log('Error:' + JSON.stringify(response))}
         })
         var date = new Date();
         $("#date").append(date)
-    })
+        $("#date").append(data)
+    })  
 }
 
