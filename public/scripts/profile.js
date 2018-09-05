@@ -1,40 +1,45 @@
+//global variables
+let randomIntr;
+const apiKey = "3b72576a30795b1d47673a2f3f2837"
+var zipCode = Cookies.get("zipCode")
+    console.log(zipCode)
+
+//global functions
 function createSucc(user){    
     console.log(user.user._id)
     window.location.reload()
 }
 function commSucc(json){
-    console.log("ANDREA")
     allComments = json
-    $("#comDisp").append(data)
-    console.log(data)
+        $("#comDisp").append(data)
+             console.log(data)
 }
-
-let randomIntr;
-const apiKey = "3b72576a30795b1d47673a2f3f2837"
-
-var zipCode = Cookies.get("zipCode")
-console.log(zipCode)
-
+function removeButton(num){
+    $('#removeBtn').on('click',function(){
+            var username = Cookies.get("username")
+            console.log("username for meetupID remove: ", username)
+            var meetupId = meetupJSONResponse[num].id
+            console.log("meetupID",meetupId)
+            $.ajax({
+                method:"PUT",
+                url:"http://localhost:3000/profile/remove",
+                data: {
+                    username: username, 
+                    meetupId: meetupId 
+                },
+                success:console.log("Success: "+username+" "+meetupId+ " "+"removed"),
+                error: function(response){console.log('Error-Username NOT removed:' + JSON.stringify(response))}
+            })
+            $("."+num).hide()
+        })
+    }
 //&category changes for list
-
 $(document).ready(function(){
     var username = Cookies.get("username")
     console.log("username"+ username)
     var lng = parseFloat(Cookies.get("lng"));
     var lat = parseFloat(Cookies.get("lat"));
     console.log("long,lat",lng,lat)
-
-// $('#location').on('submit',function(e){
-//     e.preventDefault();
-//     var zipCodeData = $(this).serialize()
-//     zipCode = zipCodeData
-//     console.log(zipCodeData)
-// })
-// for(let i=0; i<interest.length;i++){
-//     let interestVals = interest[i]
-//     console.log("interest: " +interest[i])
-// &category=${randomIntr}
-// }
 
     $.ajax({
         dataType: 'json',
@@ -158,31 +163,17 @@ function onSuccess(response){
     // console.log('success ', meetupJSONResponse)
 
 
+
+
 function addMeetup(num){
     $("#savedMeetup").append("<li class ="+num+"> "+ "Name: "+ JSON.stringify(meetupJSONResponse[num].name+
     "</li>"+
     "<li class ="+num+">" + "Link: "+meetupJSONResponse[num].link+"</li>"+
     "<button class ="+num+" id=removeBtn value=delete>Remove</button>" +"<hr class="+num+">"))
-
-    $('#removeBtn').on('click',function(){
-        var username = Cookies.get("username")
-    
-        console.log("username for meetupID remove: ", username)
-        var meetupId = meetupJSONResponse[num].id
-        console.log("meetupID",meetupId)
-        $.ajax({
-            method:"PUT",
-            url:"http://localhost:3000/profile/remove",
-            data: {
-                username: username, 
-                meetupId: meetupId 
-            },
-            success:console.log("Success: "+username+" "+meetupId+ " "+"removed"),
-            error: function(response){console.log('Error-Username NOT removed:' + JSON.stringify(response))}
-        })
-    $("."+num).hide()
-    })
+    removeButton(num)
 }
+
+
 
     //add button to Saved Meetup
     $("#btn1").on('click',function(e){

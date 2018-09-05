@@ -10,14 +10,12 @@ const signupSuccess = (json) => {
 
 function onSuccess(response){
     var googleMapRes = JSON.stringify(response)
-    console.log('success ', googleMapRes)
     var parsed = JSON.parse(googleMapRes)
-    //get longitude and latituted
-    console.log('Parsed', parsed)
+        console.log('success ', googleMapRes)
+    
+    //get longitude and latitude
     var lat = parsed.results[0].geometry.bounds.northeast.lat
-    console.log("lat",lat)
     var lng = parsed.results[0].geometry.bounds.northeast.lng
-    console.log("long",lng)
     Cookies.set("lng", lng)
     Cookies.set("lat", lat)
 }
@@ -47,45 +45,21 @@ $(document).ready(function(){
     })
 })//end doc.ready
 
-
 var allInterests = [
-    "tech",
-    "family",
-    "hw",
-    "sf",
-    "learning",
-    "photo",
-    "fd",
-    "writing",
-    "lc",
-    "music",
-    "move",
-    "lgbtq",
-    "film",
-    "sfg",
-    "beliefs",
-    "art",
-    "bc",
-    "dance",
-    "pets",
-    "hc",
-    "fb",
-    "cb",
-    "social"
+    "tech","family","hw","sf", "learning","photo","fd","writing","lc","music","move","lgbtq","film","sfg","beliefs","art","bc","dance","pets","hc","fb","cb","social"
 ]
-
 var userInterests = [];
 
 for(let i = 0; i < allInterests.length; i++){
     let interest = allInterests[i]
     document.getElementById(interest).onclick = function(){
-    if ( this.checked ) {
-        userInterests.push($(this).attr("data-id") );
-    } else {
-       let index =  userInterests.indexOf($(this).attr("data-id") )
-        userInterests.splice(index,1)
-    }
-};
+        if ( this.checked ) {
+            userInterests.push($(this).attr("data-id") );
+        } else {
+        let index = userInterests.indexOf($(this).attr("data-id") )
+            userInterests.splice(index,1)
+        }   
+    };
 }
 
 $('form').submit(function(e) {
@@ -95,7 +69,7 @@ $('form').submit(function(e) {
     var id = $("data-id").val()
     console.log("userInterests "+ userInterests)
     $.ajax({
-        method: "put",
+        method: "PUT",
         url: "http://localhost:3000/interests",
         data: {
             username: username, //pass user in from index.html, may use email instead
