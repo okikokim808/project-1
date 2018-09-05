@@ -1,3 +1,4 @@
+checkForLogin();
 function createSucc(user){    
     console.log(user.user._id)
     window.location.reload()
@@ -30,19 +31,21 @@ $(document).ready(function(){
 //     let interestVals = interest[i]
 //     console.log("interest: " +interest[i])
 // }
-checkForLogin()
+    console.log(user);
     $.ajax({
         dataType: 'json',
         method:'GET',
         url: '/userInterests',
+        data: user,
         // url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
             // var userInterests = user.interests
             // console.log(userInterests)
             // var parseInterests = userInterests
+            console.log(response)
             var userInterests = JSON.stringify(user.interests)
-                console.log(userInterests)
+            console.log(userInterests)
             var parseInterests = JSON.parse(userInterests)
 
             function randomIntrNum(min,max)
@@ -239,11 +242,13 @@ function checkForLogin(){
             xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
-        console.log(response)
-        user = { email: response.email, interests: response.interests, _id: response._id }
-        item = user;
-        console.log(user);
-        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
+        // console.log(response)
+        user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
+        item = response;
+        // console.log(response);
+        // console.log(user);
+        
+        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);
       });
