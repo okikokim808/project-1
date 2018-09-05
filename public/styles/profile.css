@@ -38,3 +38,12 @@ img{
 body{
     text-align: center;
 }
+nav{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#logout{
+    margin-right: 10px;
+    margin-top: 10px;
+}

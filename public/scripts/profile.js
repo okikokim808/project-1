@@ -176,6 +176,11 @@ function addMeetup(num){
     $("."+num).hide()
     })
 }
+    $('#logout').on('click', function(e){
+        e.preventDefault();
+        delete localStorage.token
+        window.location.replace('/');
+    })
 
     //add button to Saved Meetup
     $("#btn1").on('click',function(e){
@@ -248,7 +253,7 @@ function checkForLogin(){
         // console.log(response);
         // console.log(user);
         
-        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
+        $('#message').text(`Welcome, ${ response.users.email } `)
       }).fail(function (err) {
           console.log(err);
       });
