@@ -10,6 +10,7 @@ function commSucc(json){
 }
 
 let randomIntr;
+const apiKey = "3b72576a30795b1d47673a2f3f2837"
 
 var zipCode = Cookies.get("zipCode")
 console.log(zipCode)
@@ -68,7 +69,9 @@ $(document).ready(function(){
             }   
             randomInterest(userInterests)
 
-        var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&long=${lng}&lat=${lat}&offset=0&category=${randomIntr}&format=json&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
+        // var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=${apiKey}&long=${lng}&lat=${lat}&offset=0&category=${randomIntr}&zip=${zipCode}&format=json&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
+
+       var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=${apiKey}&zip=${zipCode}&page=100&sig_id=262151934&lon=${lng}&lat=${lat}&sig=bf5dea4ce46167a373aeadc7cecfb4d7ee8db16e&callback=?&sign=true`
 
             // console.log("RANDOM",randomIntr)
             $.ajax({
