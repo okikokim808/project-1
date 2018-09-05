@@ -1,38 +1,39 @@
-// require('app.env').config()
+let loggedIn;
+let user; 
+let long = 0;
+let lat = 0; 
+
 const signupSuccess = (json) => {
-    // console.log(json)
     let tokenJson = {token: json.token, user: json.result[0]}
-    // console.log(tokenJson)
     saveStuff(tokenJson)
 }
 
 function onSuccess(response){
-    var meetupJSONResponse = JSON.stringify(response)
-    console.log('success ' + meetupJSONResponse)
+    var googleMapRes = JSON.stringify(response)
+    console.log('success ', googleMapRes)
+    var parsed = JSON.parse(googleMapRes)
+    //get longitude and latituted
+    console.log('Parsed', parsed)
+    var lat = parsed.results[0].geometry.bounds.northeast.lat
+    console.log("lat",lat)
+    var lng = parsed.results[0].geometry.bounds.northeast.lng
+    console.log("long",lng)
 }
-
-let loggedIn;
-let user; 
-
-// var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
 
 $(document).ready(function(){
     console.log("cookie", Cookies.get('username')); // => 'value')
 
-    
-
     $('#location').on('submit',function(e){
         e.preventDefault();
-         var zipCodeData = $(this).serialize()
-        console.log(zipCodeData)
+         let zipCodeData = $('#zipCode').val()
+         console.log(zipCodeData) 
+         console.log(zipCode)
+        
         Cookies.set("zipCode", zipCodeData);
         console.log("cookie", Cookies.get('zipCode')); // => 'value') 
-        // let googleEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?&zip=key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg"
 
         let endpoint = `http://maps.googleapis.com/maps/api/geocode/json?address=13413&sensor=false&key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg`
         
-        // let googleEndpoint = `http://maps.googleapis.com/mapsapi//geocode?&output=json&q=${zipCodeData}&key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg`;
-       
         $.ajax({
             dataType: 'json',   
             method: 'GET',
@@ -42,19 +43,7 @@ $(document).ready(function(){
                 console.log('Error:' + JSON.stringify(response))
             }
         })
-       
-
     })
-
-    // $.ajax({
-    //     dataType: 'json',
-    //     type: 'GET',
-    //     url: meetupEndpoint,
-    //     success: onSuccess,
-    //     error: function(response){
-    //         console.log('Error:', response)
-    //     }
-    // })
 })//end doc.ready
 
 
