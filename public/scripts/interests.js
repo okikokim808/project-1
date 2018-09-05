@@ -103,6 +103,7 @@ $('form').submit(function(e) {
             console.log(err);
         }
     })
+    console.log(item);
     // $.ajax({
     //     method: "put",
     //     url: "http://localhost:3000/interests",
@@ -125,9 +126,10 @@ function checkForLogin(){
       }).done(function (response) {
         // console.log(response)
         user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
-        item = user;
-        console.log(response);
-        console.log(user);
+        item = response;
+        // console.log(response);
+        // console.log(user);
+        
         $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);

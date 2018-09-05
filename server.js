@@ -27,15 +27,13 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
 
-app.get('/userInterests', function getInterests(req,res){
-  var username = req.query.username
-  console.log('username'+username)
-  db.User.findOne({username},(err,user)=>{
+app.get('/userInterests', (req,res) => {
+  db.User.findById(req.body._id ,(err, user)=>{
     if(err){
       console.log("error "+ err )
       res.sendStatus(400)
     } else {
-      console.log('user ' + user)
+      // console.log('user ' + user)
       res.json(user)
     }
 
@@ -150,10 +148,9 @@ app.put('/interests', (req, res) => {
   .then( user => {
     // console.log("user " + req.body.user);
     user.interests = req.body.interests
+    res.status(200).json({
+    message: "Sent OK"
   })
-  res.status(200).json({
-    message: "Sent OK",
-    user
   })
 });
 

@@ -37,4 +37,16 @@ img{
 }
 body{
     text-align: center;
+<<<<<<< HEAD
+=======
+}
+nav{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+#logout{
+    margin-right: 10px;
+    margin-top: 10px;
+>>>>>>> 025acd650a263a3e4f4db694e0241c51c279d379
 }
