@@ -18,11 +18,12 @@ function onSuccess(response){
     console.log("lat",lat)
     var lng = parsed.results[0].geometry.bounds.northeast.lng
     console.log("long",lng)
+    Cookies.set("lng", lng)
+    Cookies.set("lat", lat)
 }
 
 $(document).ready(function(){
     console.log("cookie", Cookies.get('username')); // => 'value')
-
     $('#location').on('submit',function(e){
         e.preventDefault();
          let zipCodeData = $('#zipCode').val()

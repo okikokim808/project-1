@@ -19,6 +19,9 @@ console.log(zipCode)
 $(document).ready(function(){
     var username = Cookies.get("username")
     console.log("username"+ username)
+    var lng = parseFloat(Cookies.get("lng"));
+    var lat = parseFloat(Cookies.get("lat"));
+    console.log("long,lat",lng,lat)
 
 // $('#location').on('submit',function(e){
 //     e.preventDefault();
@@ -65,7 +68,7 @@ $(document).ready(function(){
             }   
             randomInterest(userInterests)
 
-        var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&zip=${zipCode}&offset=0&category=${randomIntr}&format=json&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
+        var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&long=${lng}&lat=${lat}&offset=0&category=${randomIntr}&format=json&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
 
             // console.log("RANDOM",randomIntr)
             $.ajax({
