@@ -43,28 +43,30 @@ function onSuccess(response){
     // console.log('success ', meetupJSONResponse)
 }
 
-$('#signUpBtn').on('click',function(e){ 
-    //TODO: SEE IF PASSWORDS MATCH 
-    e.preventDefault();
-    let data = {
-        username: $('#subName').val(),
-        email: $('#subEmail').val(),
-        password:$('#subPass').val(),
-        interests:[]
-    }
-    console.log(data);
-    $.ajax({
-        method: "POST",
-        url: "/signup",
-        data: data,
-        success: function(response){
-            console.log(response)
-            localStorage.token = response.token
-            checkForLogin();
-            window.location.replace('/interests')
-        },
-        error: console.log(data)
-    })
+// $('#signUpBtn').on('submit',function(e){ 
+    $('#signUpBtn').on('click', function(e){
+        //TODO: SEE IF PASSWORDS MATCH 
+        e.preventDefault();
+        let data = {
+            username: $('#subName').val(),
+            email: $('#subEmail').val(),
+            password:$('#subPass').val(),
+            interests:[]
+        }
+        console.log(data);
+        $.ajax({
+            method: "POST",
+            url: "/signup",
+            data: data,
+            success: function(response){
+                console.log(response)
+                localStorage.token = response.token
+                checkForLogin();
+                window.location.replace('/interests')
+            },
+            error: console.log(data)
+        })
+    // })
 })
 $('#loginForm').on('submit',function(e){
     e.preventDefault();
