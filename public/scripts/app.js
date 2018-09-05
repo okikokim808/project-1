@@ -74,7 +74,6 @@ $('#loginForm').on('submit',function(e){
     e.preventDefault();
     console.log("LOGIN FORM SUBMITTED")
     let userData = $(this).serialize()
-    console.log("LOGIN: ", userData);
     $.ajax({
       method: "POST",
       url: "/login",
