@@ -48,10 +48,10 @@ $(document).ready(function(){
             {
                 var random = 
                 Math.floor(Math.random() * (max - min)) + min;
-                console.log("random",random)
+                // console.log("random",random)
                 var parsedIntrs = JSON.parse(userInterests)
                 randomIntr = parsedIntrs[random]
-                console.log("randIntr",randomIntr)
+                // console.log("randIntr",randomIntr)
                 return randomIntr
             }
             function randomInterest(userIntr){
@@ -67,7 +67,7 @@ $(document).ready(function(){
 
         var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3b72576a30795b1d47673a2f3f2837&zip=${zipCode}&offset=0&category=${randomIntr}&format=json&page=100&country=United+States&sig_id=262151934&sig=86081e34bdd1f0a0c4f8a94ffee4526aab30fa4b&callback=?&sign=true`
 
-            console.log("RANDOM",randomIntr)
+            // console.log("RANDOM",randomIntr)
             $.ajax({
                 dataType: 'json',   
                 method: 'GET',
@@ -142,7 +142,6 @@ function onSuccess(response){
         "<h5>Link: </h5>" +meetupJSONResponse[num2].link+ "<br> " +
         "<h5>Description: </h5>" +meetupJSONResponse[num2].description+ "<br> "+
         "<button class = addBtn id=btn2 value=add>Add</button>" + "</li>") 
-
     "<li>" +
         $("#list").append(
         "<h2>Meetup 3" + " " + "</h2>" +
@@ -150,19 +149,18 @@ function onSuccess(response){
         "<h5>Link: </h5>" +meetupJSONResponse[num3].link+ "<br> " +
         "<h5>Description: </h5>" +meetupJSONResponse[num3].description+ "<br> "+
         "<button class = addBtn id=btn3 value=add>Add</button>" + "</li>")    
-    
     // console.log('success ', meetupJSONResponse)
-   
+
 
 function addMeetup(num){
-    $("#savedMeetup").append("<li class ="+num+">" + "Name: "+ JSON.stringify(meetupJSONResponse[num].name+
+    $("#savedMeetup").append("<li class ="+num+"> "+ "Name: "+ JSON.stringify(meetupJSONResponse[num].name+
     "</li>"+
     "<li class ="+num+">" + "Link: "+meetupJSONResponse[num].link+"</li>"+
-    "<button class=removeBtn value=delete>Remove</button>" +"<hr class =hr>"))
+    "<button class ="+num+" id=removeBtn value=delete>Remove</button>" +"<hr class="+num+">"))
 
-    $('.removeBtn').on('click',function(){
+    $('#removeBtn').on('click',function(){
         var username = Cookies.get("username")
-       
+    
         console.log("username for meetupID remove: ", username)
         var meetupId = meetupJSONResponse[num].id
         console.log("meetupID",meetupId)
@@ -218,20 +216,20 @@ function addMeetup(num){
         e.preventDefault;
         console.log("commentClicked")
     })
+
     $('#comments').on('submit',function(e){
         e.preventDefault();
         var data = $(this).serialize();
-        console.log(data);
         $.ajax({
             method:'PUT',
-            url:"/profile/comment",
+            url:'http://localhost:3000/profile/comment',
             data:data,
             success: commSucc,
             error: function(response){console.log('Error:' + JSON.stringify(response))}
         })
         var date = new Date();
         $("#date").append(date)
-        $("#date").append(data)
+        
     })  
     // console.log("RANDOM",randomIntr)
 }

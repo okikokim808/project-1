@@ -27,6 +27,15 @@ app.use(function(req, res, next) {
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
 
+app.get('/interests/location',function getLongLat(req,res){
+  if(err){
+    console.log("error"+err)
+    res.sendStatus(400)
+  }
+  else console.log('location' + res)
+
+})
+
 app.get('/userInterests', function getInterests(req,res){
   console.log(req.query.username)
   var username = req.query.username
@@ -42,14 +51,17 @@ app.get('/userInterests', function getInterests(req,res){
   })
 })
 
+
 app.get('/interests', (req, res) => {res.sendFile(__dirname + '/views/interests.html');});
+
 app.get('/profile', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
-app.get('/api', (req, res) => {
-  fetchJson("https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837")
-      .then(json => json.toJSON())
-      .then(json => res.json(json))
-      .catch(err => console.log("ERROR: ", err));
-  });
+
+// app.get('/api', (req, res) => {
+//   fetchJson("https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837")
+//       .then(json => json.toJSON())
+//       .then(json => res.json(json))
+//       .catch(err => console.log("ERROR: ", err));
+//   });
 
 //APP.POST
 app.post('/verify', verifyToken, (req, res) => {
@@ -58,29 +70,7 @@ app.post('/verify', verifyToken, (req, res) => {
     res.json(verified)
 })
 
-app.post('/profile/:user_id/comments', function (req, res) {
-  {
-    let newComment = req.body.comments;
-    let name = req.body.name;
 
-    db.User.findOneAndUpdate({username:name}, newComment, (err, updatedComment)=>{
-      if (err){
-        return console.log(err)
-      }
-      else{
-        respond.JSON(updatedComment)
-      }
-    }) 
-
-    db.User.create(newComment, function(err,comment){
-      if (err){
-        console.log("index error:"+ err);
-        res.sendStatus(400)
-      }
-      res.json({comment})
-    })
-  }
-})
 
 
 app.post('/protectedPage', verifyToken, (req, res) => {
@@ -203,6 +193,28 @@ app.put('/interests', (req, res) => {
     message: "Sent OK"
   })
 });
+
+app.put('/profile/comment', function (req, res) {
+  {
+    let newComment = req.body.comments;
+    let name = req.body.name;
+    db.User.findOneAndUpdate({username:name}, newComment, (err, updatedComment)=>{
+      if (err){
+        return console.log(err)
+      }
+      else{
+        respond.JSON(updatedComment)
+      }
+    }) 
+    db.User.create(newComment, function(err,comment){
+      if (err){
+        console.log("index error:"+ err);
+        res.sendStatus(400)
+      }
+      res.json({comment})
+    })
+  }
+})
 //FUNCTIONS
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];

@@ -5,6 +5,12 @@ const signupSuccess = (json) => {
     // console.log(tokenJson)
     saveStuff(tokenJson)
 }
+
+function onSuccess(response){
+    var meetupJSONResponse = JSON.stringify(response)
+    console.log('success ' + meetupJSONResponse)
+}
+
 let loggedIn;
 let user; 
 
@@ -17,10 +23,27 @@ $(document).ready(function(){
 
     $('#location').on('submit',function(e){
         e.preventDefault();
-        var zipCodeData = $(this).serialize()
+         var zipCodeData = $(this).serialize()
         console.log(zipCodeData)
         Cookies.set("zipCode", zipCodeData);
         console.log("cookie", Cookies.get('zipCode')); // => 'value') 
+        // let googleEndpoint = "https://maps.googleapis.com/maps/api/geocode/json?&zip=key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg"
+
+        let endpoint = `http://maps.googleapis.com/maps/api/geocode/json?address=13413&sensor=false&key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg`
+        
+        // let googleEndpoint = `http://maps.googleapis.com/mapsapi//geocode?&output=json&q=${zipCodeData}&key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg`;
+       
+        $.ajax({
+            dataType: 'json',   
+            method: 'GET',
+            url: endpoint,
+            success: onSuccess,
+            error: function(response){
+                console.log('Error:' + JSON.stringify(response))
+            }
+        })
+       
+
     })
 
     // $.ajax({
@@ -34,10 +57,6 @@ $(document).ready(function(){
     // })
 })//end doc.ready
 
-// function onSuccess(response){
-//     var meetupJSONResponse = JSON.stringify(response)
-//     // console.log('success ' + meetupJSONResponse)
-// }
 
 var allInterests = [
     "tech",
