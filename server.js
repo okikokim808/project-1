@@ -26,10 +26,12 @@ app.use(function(req, res, next) {
 //APP.GET
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
+
 app.get('/userInterests', function getInterests(req,res){
+  console.log(req.query.username)
   var username = req.query.username
-  console.log('username'+username)
-  db.User.findOne({username},(err,user)=>{
+  console.log('username',username)
+  db.User.findOne({username:username},(err,user)=>{
     if(err){
       console.log("error "+ err )
       res.sendStatus(400)
@@ -37,7 +39,6 @@ app.get('/userInterests', function getInterests(req,res){
       console.log('user ' + user)
       res.json(user)
     }
-
   })
 })
 
