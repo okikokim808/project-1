@@ -61,7 +61,7 @@ $('#signUpBtn').on('click',function(e){
             console.log(response)
             localStorage.token = response.token
             checkForLogin();
-            window.location.replace('/interests')
+            window.location.replace('/')
         },
         error: console.log(data)
     })
