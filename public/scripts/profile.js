@@ -247,13 +247,6 @@ function checkForLogin(){
             xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
-<<<<<<< HEAD
-        console.log(response)
-        user = { email: response.email, interests: response.interests, _id: response._id }
-        item = user;
-        console.log(user);
-        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
-=======
         // console.log(response)
         user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
         item = response;
@@ -261,7 +254,6 @@ function checkForLogin(){
         // console.log(user);
         
         $('#message').text(`Welcome, ${ response.users.email } `)
->>>>>>> 025acd650a263a3e4f4db694e0241c51c279d379
       }).fail(function (err) {
           console.log(err);
       });

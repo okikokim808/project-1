@@ -53,10 +53,6 @@ $('#signUpBtn').on('click',function(e){
         interests:[]
     }
     console.log(data);
-
-    // Cookies.set("username", $('#subName').val());
-    // console.log("cookie", Cookies.get('username')); // => 'value') 
-
     $.ajax({
         method: "POST",
         url: "/signup",
