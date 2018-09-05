@@ -1,4 +1,3 @@
-checkForLogin();
 function createSucc(user){    
     console.log(user.user._id)
     window.location.reload()
@@ -19,7 +18,7 @@ var meetupEndpoint = `https://api.meetup.com/find/groups?photo-host=public&key=3
 
 $(document).ready(function(){
     var username = Cookies.get("username")
-    console.log("username"+ username)
+    console.log("username "+ username)
 
 // $('#location').on('submit',function(e){
 //     e.preventDefault();
@@ -31,19 +30,18 @@ $(document).ready(function(){
 //     let interestVals = interest[i]
 //     console.log("interest: " +interest[i])
 // }
-
+checkForLogin()
     $.ajax({
         dataType: 'json',
         method:'GET',
-        url: '/interests',
-        data: {username: username},
-        url: "http://localhost:3000/userInterests",
+        url: '/userInterests',
+        // url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
             // var userInterests = user.interests
             // console.log(userInterests)
             // var parseInterests = userInterests
-            var userInterests = JSON.stringify(response.interests)
+            var userInterests = JSON.stringify(user.interests)
                 console.log(userInterests)
             var parseInterests = JSON.parse(userInterests)
 

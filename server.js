@@ -152,7 +152,8 @@ app.put('/interests', (req, res) => {
     user.interests = req.body.interests
   })
   res.status(200).json({
-    message: "Sent OK"
+    message: "Sent OK",
+    user
   })
 });
 
