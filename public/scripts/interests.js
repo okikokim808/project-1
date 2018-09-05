@@ -98,6 +98,7 @@ $('form').submit(function(e) {
         },
         success: function(results){
             console.log(results);
+            window.location.replace('/');
         },
         error: function(err){
             console.log(err);
