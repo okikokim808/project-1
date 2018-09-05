@@ -137,8 +137,8 @@ function onSuccess(response){
         "<h5>Description: </h5>" +meetupJSONResponse[num2].description+ "<br> "+
         "<button class = addBtn id=btn2 value=add>Add</button>" + "</li>") 
 
-    "<li>" +
-        $("#list").append(
+    $("#list").append(
+        "<li>" +
         "<h2>Meetup 3" + " " + "</h2>" +
         "<h5>Name: </h5>" + meetupJSONResponse[num3].name + "<br> " +
         "<h5>Link: </h5>" +meetupJSONResponse[num3].link+ "<br> " +
@@ -243,7 +243,7 @@ function checkForLogin(){
         user = { email: response.email, interests: response.interests, _id: response._id }
         item = user;
         console.log(user);
-        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
+        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);
       });
