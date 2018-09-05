@@ -248,12 +248,12 @@ function checkForLogin(){
         }
       }).done(function (response) {
         // console.log(response)
-        user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
+        user = { email: response.email, _id: response._id, interests: response.interests}
         item = response;
         // console.log(response);
         // console.log(user);
         
-        $('#message').text(`Welcome, ${ response.users.email } `)
+        $('#message').text(`Welcome, ${ response.email } `)
       }).fail(function (err) {
           console.log(err);
       });
