@@ -27,7 +27,7 @@ As a user, I want to meet new people.
 
 ## Deployment
 
-* Visit our site at [Spontaneous](our url goes here)
+* Visit our site at [Spontaneous](www.google.com)
 
 ## Built With
 
