@@ -30,3 +30,6 @@ border: none;
 .container .btn{
 margin-top: 10px;
 }
+@media only screen and (min-width: 375){
+    
+}

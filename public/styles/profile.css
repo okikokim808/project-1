@@ -47,3 +47,11 @@ nav{
     margin-right: 10px;
     margin-top: 10px;
 }
+@media only screen and (max-width: 375){
+    #list{
+        width: 60%;
+    }
+    li{
+        width: 60%;
+    }
+}
