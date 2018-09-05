@@ -27,11 +27,13 @@ As a user, I want to meet new people.
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+* Visit our site at [Spontaneous](our url goes here)
 
 ## Built With
 
 * [jQuery](http://jquery.com/) - The web framework used
+* [node.js](https://nodejs.org/en/) - The backend framework used
+* [mongoDB/mongoose](https://www.mongodb.com/) - The database used and language used to manipulate it
 
 ## Authors
 
