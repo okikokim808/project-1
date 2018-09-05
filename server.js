@@ -33,7 +33,6 @@ app.get('/userInterests', (req,res) => {
       console.log("error "+ err )
       res.sendStatus(400)
     } else {
-      // console.log('user ' + user)
       res.json(user)
     }
 
@@ -65,8 +64,6 @@ app.post('/login', (req, res) => {
             message: "Email/Password incorrect"
           })
         }
-        // we have an email in our db that matches what they gave us
-        // now we have to compare their hashed password to what we have in our db
         console.log("body", req.body);
         console.log("hash", users[0].password);
         bcrypt.compare(req.body.password, users[0].password, (err, match) => {
@@ -211,18 +208,6 @@ app.post('/signup', (req, res) => {
                     }
                 )
             })
-            // console.log(JSON.stringify(user));
-            // user
-            //   .save()
-            //   .then( result =>
-            //     res.json({message: 'User created',
-            //               user: result
-            //             })
-            //   )
-            //   .catch( err => {
-            //     console.log(err);
-            //     res.status(500).json({err})
-            //   })
           }
         })
       }
@@ -240,7 +225,6 @@ app.put('/profile',(req,res)=>{
     .exec()
     .then( user => {
       console.log("user " + user);
-      // user.interests = user.interests + req.body.interests
     }),
     res.status(200).json({
       message: "Sent OK"
@@ -254,23 +238,6 @@ app.put('/profile/remove',(req,res)=>{
   let meetupId = req.body.meetupId;
   db.User.findOneAndRemove({username:username},{meetupIDs:meetupId})
 })
-
-// app.put('/profile/comment',(req,res)=>{
-//   console.log("request", req.body.comments);
-//   //DB CALLS
-//     db.User.findOneAndUpdate({username: req.body.username},{comments: req.body.comment})
-  
-//     db.User.findOneAndUpdate({username: req.body.username},
-//       {comments: req.body.comment})
-//     .exec()
-//     .then( user => {
-//       console.log("user " + user);
-//       // user.interests = user.interests + req.body.interests
-//     })
-//     res.status(200).json({
-//       message: "Sent OK"
-//     })
-// })
 
 app.put('/interests', (req, res) => {
   console.log("request", req.body.interests);

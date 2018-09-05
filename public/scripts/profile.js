@@ -21,28 +21,14 @@ $(document).ready(function(){
     var username = Cookies.get("username")
     console.log("username "+ username)
 
-// $('#location').on('submit',function(e){
-//     e.preventDefault();
-//     var zipCodeData = $(this).serialize()
-//     zipCode = zipCodeData
-//     console.log(zipCodeData)
-// })
-// for(let i=0; i<interest.length;i++){
-//     let interestVals = interest[i]
-//     console.log("interest: " +interest[i])
-// }
     console.log(user);
     $.ajax({
         dataType: 'json',
         method:'GET',
         url: '/userInterests',
         data: user,
-        // url: "http://localhost:3000/userInterests",
         success:function(response){
             console.log("User Interests Retrieved")
-            // var userInterests = user.interests
-            // console.log(userInterests)
-            // var parseInterests = userInterests
             console.log(response)
             var userInterests = JSON.stringify(user.interests)
             console.log(userInterests)
@@ -94,34 +80,31 @@ function onSuccess(response){
     let maxLen = meetupJSONResponse.length;
     console.log("meetupRes",meetupJSONResponse) //scoping
 //loop through response, match with random    
-    
-//calculate random numbers
-        function randomNum(min,max,interval)
-        {
-            interval = 1;
-            let random = Math.floor(Math.random()*(max-0+interval)/interval);
-            return random*interval+min;
+    function randomNum(min,max,interval)
+    {
+        interval = 1;
+        let random = Math.floor(Math.random()*(max-0+interval)/interval);
+        return random*interval+min;
+    }
+        var num1 = randomNum(0,maxLen); 
+        var num2 = randomNum(0,maxLen); 
+        var num3 = randomNum(0,maxLen);  
+         //rule out
+        if(num1 === num2 || num1 === num3 && num1 != maxLen){
+            num1++
         }
-            var num1 = randomNum(0,maxLen); 
-            var num2 = randomNum(0,maxLen); 
-            var num3 = randomNum(0,maxLen);  
-             //rule out
-            if(num1 === num2 || num1 === num3 && num1 != maxLen){
-                num1++
+            else if(num2 === num3 && num2 != maxLen){
+                num2++ 
             }
-                else if(num2 === num3 && num2 != maxLen){
-                    num2++ 
-                }
-                else if(num1 === num2 || num1 === num3 && num1=== maxLen){
-                    num1--
-                }
-                else if(num2 === num3 && num2 === maxLen){
-                    num2--
-                }
+            else if(num1 === num2 || num1 === num3 && num1=== maxLen){
+                num1--
+            }
+            else if(num2 === num3 && num2 === maxLen){
+                num2--
+            }
     //generate HTML
    console.log(num1,num2,num3)
    //comparison link: 
-   //if category id === parsed int
    console.log("catID num1",meetupJSONResponse[num1].category.id)
     //List Meetups
     $("#list").append(
@@ -165,7 +148,7 @@ function addMeetup(num){
         console.log("meetupID",meetupId)
         $.ajax({
             method:"PUT",
-            url:"http://localhost:3000/profile/remove",
+            url:"/profile/remove",
             data: {
                 username: username, 
                 meetupId: meetupId 
@@ -247,11 +230,8 @@ function checkForLogin(){
             xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
-        // console.log(response)
         user = { email: response.email, _id: response._id, interests: response.interests}
         item = response;
-        // console.log(response);
-        // console.log(user);
         
         $('#message').text(`Welcome, ${ response.email } `)
       }).fail(function (err) {
