@@ -70,9 +70,6 @@ app.post('/verify', verifyToken, (req, res) => {
     res.json(verified)
 })
 
-
-
-
 app.post('/protectedPage', verifyToken, (req, res) => {
     console.log(req.token)
     jwt.verify(req.token, 'kombucha', (err, authData) => {
@@ -171,10 +168,10 @@ app.put('/profile',(req,res)=>{
 })
 
 app.put('/profile/remove',(req,res)=>{
-  console.log("ANDREA12",req.body.username)
+  console.log("REMOVE PROF",req.body.username)
   let username = req.body.username;
   let meetupId = req.body.meetupId;
-  db.User.findOneAndRemove({username:username},{meetupIDs:meetupId})
+  db.User.findOneAndRemove({username:req.body.username},{meetupIDs:req.body.meetupId})
 })
 
 app.put('/interests', (req, res) => {

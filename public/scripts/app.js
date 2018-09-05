@@ -25,24 +25,24 @@ function fetchGroups(url, cb, data) {
 
 //move to Profile Page
 
-$(document).ready(function(){
-    console.log('in app.js')
-    $.ajax({
-        dataType: 'json',
-        method: 'GET',
-        url: meetupEndpoint,
-        success: onSuccess,
-        error: function(response){
-            console.log('Error:' + response)
-        }
-    })
-})//end doc.ready
+// $(document).ready(function(){
+//     console.log('in app.js')
+//     $.ajax({
+//         dataType: 'json',
+//         method: 'GET',
+//         url: meetupEndpoint,
+//         success: onSuccess,
+//         error: function(response){
+//             console.log('Error:' + response)
+//         }
+//     })
+// })//end doc.ready
 
-function onSuccess(response){
-    var meetupJSONResponse = response.results;
-    $('#meetupList').append(meetupJSONResponse[0].description);
-    // console.log('success ', meetupJSONResponse)
-}
+// function onSuccess(response){
+//     var meetupJSONResponse = response.results;
+//     $('#meetupList').append(meetupJSONResponse[0].description);
+//     // console.log('success ', meetupJSONResponse)
+// }
 
 $('#signUpBtn').on('click',function(){ 
     //TODO: SEE IF PASSWORDS MATCH 
@@ -67,4 +67,5 @@ $('#signUpBtn').on('click',function(){
             console.log("error", JSON.stringify(response))
         },
     })
+    window.location.replace('/interests');
 })
