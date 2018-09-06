@@ -75,11 +75,11 @@ function checkForLogin(){
             xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
-          
-        user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
+        console.log(response)
+        user = { email: response.email, _id: response._id, interests: response.interests}
         item = response;
         
-        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
+        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);
       });

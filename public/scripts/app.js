@@ -25,17 +25,17 @@ function fetchGroups(url, cb, data) {
 
 //move to Profile Page
 
-$(document).ready(function(){
-    $.ajax({
-        dataType: 'json',
-        method: 'GET',
-        url: meetupEndpoint,
-        success: onSuccess,
-        error: function(response){
-            console.log('Error:' + response)
-        }
-    })
-})//end doc.ready
+// $(document).ready(function(){
+//     $.ajax({
+//         dataType: 'json',
+//         method: 'GET',
+//         url: meetupEndpoint,
+//         success: onSuccess,
+//         error: function(response){
+//             console.log('Error:' + response)
+//         }
+//     })
+// })//end doc.ready
 
 function onSuccess(response){
     var meetupJSONResponse = response.results;
