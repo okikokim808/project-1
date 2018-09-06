@@ -46,6 +46,8 @@
   <li>Include interactive link to meetup</li>
   <li>Remove HTML from AJAX response</li>
    <li>Add error handling for undefined AJAX responses</li>
+   <li>Enhance Mobile Responsivness</li>
+   <li>Add user meessages where necessary</li>
 </ul>
 
 <h2>Authors</h2>
