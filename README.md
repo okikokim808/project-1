@@ -45,6 +45,7 @@
   <li>Implement feature for users to edit/update zip code and interest selection</li>
   <li>Include interactive link to meetup</li>
   <li>Remove HTML from AJAX response</li>
+   <li>Add error handling for undefined AJAX responses</li>
 </ul>
 
 <h2>Authors</h2>
