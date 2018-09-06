@@ -12,34 +12,34 @@ const bcrypt = require('bcrypt');
 const db = require('./models');
 const jwt = require('jsonwebtoken')
 
-//APP.USE
+//APP.USE 
 app.use(express.static('public'));
-// allow cross origin requests
-// https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+
+// Allow Cross Origin Requests(CORS)
 app.use(function(req, res, next) {
     res.header ("set Access-Control-Allow-Origin "*"");
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
-//html endpoints
+
+
 //APP.GET
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/index.html');});
 app.get('/', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
 
+//Geocoding
 app.get('/interests/location',function getLongLat(req,res){
   if(err){
     console.log("error"+err)
     res.sendStatus(400)
   }
   else console.log('location' + res)
-
 })
 
+//Get user interests from cached value from selected checkboxes in interests.html
 app.get('/userInterests', function getInterests(req,res){
-  console.log(req.query.username)
   var username = req.query.username
-  console.log('username',username)
   db.User.findOne({username:username},(err,user)=>{
     if(err){
       console.log("error "+ err )
@@ -51,17 +51,9 @@ app.get('/userInterests', function getInterests(req,res){
   })
 })
 
-
 app.get('/interests', (req, res) => {res.sendFile(__dirname + '/views/interests.html');});
 
 app.get('/profile', (req, res) => {res.sendFile(__dirname + '/views/profile.html');});
-
-// app.get('/api', (req, res) => {
-//   fetchJson("https://api.meetup.com/2/concierge?&sign=true&photo-host=public&key=3b72576a30795b1d47673a2f3f2837")
-//       .then(json => json.toJSON())
-//       .then(json => res.json(json))
-//       .catch(err => console.log("ERROR: ", err));
-//   });
 
 //APP.POST
 app.post('/verify', verifyToken, (req, res) => {
@@ -85,7 +77,6 @@ app.post('/protectedPage', verifyToken, (req, res) => {
 });
 
 app.post('/signup', (req, res) => {
-    console.log('SignUp', req.body);
     db.User.find({email: req.body.email})
     .exec()
     .then( user => {
@@ -168,9 +159,7 @@ app.put('/profile',(req,res)=>{
 })
 
 app.put('/profile/remove',(req,res)=>{
-  console.log("REMOVE PROF",req.body.username)
-  let username = req.body.username;
-  let meetupId = req.body.meetupId;
+  console.log("Removing Profile",req.body.username)
   db.User.findOneAndRemove({username:req.body.username},{meetupIDs:req.body.meetupId})
 })
 
