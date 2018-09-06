@@ -152,23 +152,23 @@ app.put('/interests', (req, res) => {
     user.interests = req.body.interests
   })
   res.status(200).json({
-    message: "Sent OK",
-    user
+    message: "Sent OK"
   })
 });
 
-app.post('/interests', verifyToken, (req, res) => {
-    console.log(req.token)
-    jwt.verify(req.token, 'kombucha', (err, authData) => {
-      if(err) {
-        res.sendStatus(403);
-      } else {
-        res.json({
-          message: 'Post created',
-          authData
-        });
-      }
-    });
+app.put('/interests', (req, res) => {
+  console.log("request", req.body.interests);
+//DB CALLS
+  console.log(req.body);
+  db.User.findOneAndUpdate({_id: req.body._id},{interests: req.body.interests})
+  .exec()
+  .then( user => {
+    // console.log("user " + req.body.user);
+    user.interests = req.body.interests
+    res.status(200).json({
+    message: "Sent OK"
+  })
+  })
 });
 
 app.get('/signup', (req, res) => {
@@ -278,18 +278,15 @@ app.put('/profile/remove',(req,res)=>{
 app.put('/interests', (req, res) => {
   console.log("request", req.body.interests);
 //DB CALLS
-  db.User.findOneAndUpdate({username: req.body.username},
-    {interests: req.body.interests})
-
-  db.User.findOneAndUpdate({username: req.body.username},
-    {interests: req.body.interests})
+  console.log(req.body);
+  db.User.findOneAndUpdate({_id: req.body._id},{interests: req.body.interests})
   .exec()
   .then( user => {
-    console.log("user " + user);
-    // user.interests = user.interests + req.body.interests
-  })
-  res.status(200).json({
+    // console.log("user " + req.body.user);
+    user.interests = req.body.interests
+    res.status(200).json({
     message: "Sent OK"
+  })
   })
 });
 //FUNCTIONS

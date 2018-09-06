@@ -47,6 +47,11 @@ for(let i = 0; i < allInterests.length; i++){
 
 $('form').submit(function(e) {
     e.preventDefault()
+    // console.log()
+    // console.log("cookie", Cookies.get('username')); // => 'value')
+    // var username = Cookies.get('username') 
+    // var id = $("data-id").val()
+    // console.log("userInterests "+ userInterests)
     $.ajax({
         type: "PUT",
         url: "/interests",
@@ -62,9 +67,17 @@ $('form').submit(function(e) {
             console.log(err);
         }
     })
-    console.log(item);   
+    console.log(item);
+    // $.ajax({
+    //     method: "put",
+    //     url: "http://localhost:3000/interests",
+    //     data: {
+    //         username: username, //pass user in from index.html, may use email instead
+    //         interests: userInterests //get from intrests.html
+    //     }
+    // })     
 })
-var item;
+
 function checkForLogin(){
     if(localStorage.length > 0){
       let jwt = localStorage.token
@@ -75,11 +88,13 @@ function checkForLogin(){
             xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);
         }
       }).done(function (response) {
-        console.log(response)
-        user = { email: response.email, _id: response._id, interests: response.interests}
+        // console.log(response)
+        user = { email: response.users.email, _id: response.users._id, interests: response.users.interests}
         item = response;
+        // console.log(response);
+        // console.log(user);
         
-        $('#message').text(`Welcome, ${ response.email || response.result.email } `)
+        $('#message').text(`Welcome, ${ response.users.email || response.result.email } `)
       }).fail(function (err) {
           console.log(err);
       });
