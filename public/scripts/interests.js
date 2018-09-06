@@ -1,82 +1,65 @@
-// require('app.env').config()
-const signupSuccess = (json) => {
-    // console.log(json)
-    let tokenJson = {token: json.token, user: json.result[0]}
-    // console.log(tokenJson)
-    saveStuff(tokenJson)
-}
 let loggedIn;
 let user; 
+let long = 0;
+let lat = 0; 
 
-// var meetupEndpoint = "https://api.meetup.com/2/concierge?&photo-host=public&key=3b72576a30795b1d47673a2f3f2837&callback=?&sign=true"
+const signupSuccess = (json) => {
+    let tokenJson = {token: json.token, user: json.result[0]}
+    saveStuff(tokenJson)
+}
+
+function onSuccess(response){
+    var googleMapRes = JSON.stringify(response)
+    var parsed = JSON.parse(googleMapRes)
+        console.log('success ', googleMapRes)
+    
+    //get longitude and latitude
+    var lat = parsed.results[0].geometry.bounds.northeast.lat
+    var lng = parsed.results[0].geometry.bounds.northeast.lng
+    Cookies.set("lng", lng)
+    Cookies.set("lat", lat)
+}
 
 $(document).ready(function(){
     console.log("cookie", Cookies.get('username')); // => 'value')
-
-    
-
     $('#location').on('submit',function(e){
         e.preventDefault();
-        var zipCodeData = $(this).serialize()
-        console.log(zipCodeData)
+         let zipCodeData = $('#zipCode').val()
+         console.log(zipCodeData) 
+         console.log(zipCode)
+        
         Cookies.set("zipCode", zipCodeData);
         console.log("cookie", Cookies.get('zipCode')); // => 'value') 
-    })
 
-    // $.ajax({
-    //     dataType: 'json',
-    //     type: 'GET',
-    //     url: meetupEndpoint,
-    //     success: onSuccess,
-    //     error: function(response){
-    //         console.log('Error:', response)
-    //     }
-    // })
+        let endpoint = `http://maps.googleapis.com/maps/api/geocode/json?address=13413&sensor=false&key=AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg`
+        
+        $.ajax({
+            dataType: 'json',   
+            method: 'GET',
+            url: endpoint,
+            success: onSuccess,
+            error: function(response){
+                console.log('Error:' + JSON.stringify(response))
+            }
+        })
+    })
 })//end doc.ready
 
-// function onSuccess(response){
-//     var meetupJSONResponse = JSON.stringify(response)
-//     // console.log('success ' + meetupJSONResponse)
-// }
-
 var allInterests = [
-    "tech",
-    "family",
-    "hw",
-    "sf",
-    "learning",
-    "photo",
-    "fd",
-    "writing",
-    "lc",
-    "music",
-    "move",
-    "lgbtq",
-    "film",
-    "sfg",
-    "beliefs",
-    "art",
-    "bc",
-    "dance",
-    "pets",
-    "hc",
-    "fb",
-    "cb",
-    "social"
+    "tech","family","hw","sf", "learning","photo","fd","writing","lc","music","move","lgbtq","film","sfg","beliefs","art","bc","dance","pets","hc","fb","cb","social"
 ]
-
 var userInterests = [];
 
 for(let i = 0; i < allInterests.length; i++){
     let interest = allInterests[i]
     document.getElementById(interest).onclick = function(){
-    if ( this.checked ) {
-        userInterests.push($(this).attr("data-id") );
-    } else {
-       let index =  userInterests.indexOf($(this).attr("data-id") )
-        userInterests.splice(index,1)
-    }
-};
+        if ( this.checked ) {
+            userInterests.push($(this).attr("data-id") );
+        } else {
+        let index = userInterests.indexOf($(this).attr("data-id") )
+            userInterests.splice(index,1)
+        }   
+    };
 }
 
 $('form').submit(function(e) {
@@ -86,11 +69,17 @@ $('form').submit(function(e) {
     var id = $("data-id").val()
     console.log("userInterests "+ userInterests)
     $.ajax({
-        method: "put",
+        method: "PUT",
         url: "http://localhost:3000/interests",
         data: {
             username: username, //pass user in from index.html, may use email instead
             interests: userInterests //get from intrests.html
-        }
-    })     
+        },
+        success: ()=>{
+           $('#submitBtn').on('click',()=>{
+               window.location.replace('/profile')
+            }) 
+        },
+        error: console.log('Error - interests not submitted')
+    }) 
 })
