@@ -47,7 +47,7 @@
   <li>Remove HTML from AJAX response</li>
    <li>Add error handling for undefined AJAX responses</li>
    <li>Enhance Mobile Responsivness</li>
-   <li>Add user meessages where necessary</li>
+   <li>Add conditional user meessages for direction and clarification to improve user experience</li>
 </ul>
 
 <h2>Authors</h2>
