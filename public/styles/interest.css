@@ -11,7 +11,13 @@
     margin: 10px;
   }
 
-#submitBtn, #zipSubmit.btn{
+  input#submitBtn{
+      color:#333f4f;
+      background-color: lightgrey;
+      border-radius: 3px;
+      border: 2px solid white;
+  }
+#zipSubmit.btn{
     color:white;
     background-color: #333f4f;
 }
@@ -44,7 +50,7 @@ h1, h2{
 @media screen and (max-width: 385px) {
     *{font-size: 1em}
     .light {
-        color: #333f4f 
+        color: #333f4f;
     }
     #cab{
         color: lightgrey} 

@@ -1,11 +1,13 @@
 *{
-     font-family: 'Oswald', sans-serif;
+     
      color: #333f4f; 
 }
 
 .capBold, .btn{
+    font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     font-weight: bolder;
+    text-decoration: underline;
 }
 
 .picture{
@@ -41,6 +43,7 @@
 
 p{
     color:white;
+    font-size: .9em;
 }
 .btn-default:hover, .btn:hover{
     background-color:#333f4f;
@@ -67,4 +70,8 @@ h3{
 
 .parg{
     width: 65vw;
+}
+
+.text-center, #loginForm.container{
+    margin: 2em;
 }

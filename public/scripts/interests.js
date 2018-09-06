@@ -82,5 +82,4 @@ $('form').submit(function(e) {
         },
         error: console.log('Error - interests not submitted')
     }) 
-     
 })

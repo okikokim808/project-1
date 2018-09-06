@@ -196,7 +196,7 @@ function removeMeetup(num){
         })     
         addMeetup(num1)
         removeMeetup(num1)
-        $(this).hide()   
+        $(this).hide() 
     })
     $("#btn2").on('click',function(e){
         var username = Cookies.get("username")
@@ -245,7 +245,6 @@ function removeMeetup(num){
     })
 
     //COMMENTS
-
     $('#comments').on('submit',function(e){
         e.preventDefault();
         var data = $(this).serialize();
@@ -260,6 +259,13 @@ function removeMeetup(num){
         $("#date").append(date)
         
     })  
-    // console.log("RANDOM",randomIntr)
+    // Select one of the three random meetups. 
+    $('.decide').on('click',()=>{
+        let randMtp =  Math.floor(Math.random() * (3)) + 1;
+        let text = `<h3>We picked Meetup ${randMtp}. Have Fun!</h3>`
+            $('.ourPick').append(text)
+            $('.decide').hide()
+        
+    })
 }
 
