@@ -13,94 +13,127 @@
 
      <script src = "scripts/interests.js" defer></script>
 </head>
+
 <body>
-        <h1>Enter Location</h1>
+        <h1>Explore Meetups</h1>
         <div class = "locationForm">
             <div class="bg-img">
                 <form class="container" id="location">
                         <label for="zip">Zip Code</label>
                         <input type="text" id ="zipCode" name="zipCode" required>
-                        <button type="submit" class="btn" id="zipSubmit">Submit</button>
+                        <button  class="btn" id="zipSubmit">Submit</button>
                 </form>
         </div>
-    <h1>Select Your Interests:</h1>
+    <h2>Select Your Interests:</h2>
     <form>
         <!-- TODO: change data-id to match meetup category names -->
         <div class ="grid-container">
             <div class="grid-item">
-                <input type="checkbox" data-id="34" id ="tech" name="tech" value="tech"> Tech
+                <input type="checkbox" data-id="34" id ="tech" name="tech" value="tech"> 
+                Tech
             </div>
             <div class="grid-item">
                 <input type="checkbox" data-id="25" id ="family" name="family" value="family"> Parents and Family
             </div>
             <div class="grid-item">
-              <input type="checkbox" data-id ="14" id ="hw" name="hw" value="hw"> Health and    Wellness
+              <input type="checkbox" data-id ="14" id ="hw" name="hw" value="hw"> Health and Wellness
             </div>
             <div class="grid-item">
                  <input type="checkbox" data-id ="32" id ="sf" name="sf" value="sf"> Sports and Fitness
             </div>
             <div class="grid-item">
-                <input type="checkbox" id ="learning" name="learning" value="learning"> Learning
+                    <input type="checkbox" id ="learning" name="learning" value="learning"> Learning
             </div>
             <div class="grid-item">
-                <input type="checkbox" id ="photo" name="photo" value="photo"> Photography 
+                 <input type="checkbox" id ="photo" name="photo" value="photo"> Photography 
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id = "6" id ="fd" name="fd" value="fd"> Food and Drink
+                    <input type="checkbox" data-id = "6" id ="fd" name="fd" value="fd"> Food and Drink
             </div>
             <div class="grid-item">
                 <input type="checkbox" data-id ="36" id ="writing" name="writing" value="writing"> Writing
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id ="6" id ="lc" name="lc" value="lc"> Learning and Culture
+                <p class ="medium">
+                    <input type="checkbox" data-id ="6" id ="lc" name="lc" value="lc"> Learning and Culture
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id ="21" id ="music" name="music" value="music"> Music
+                 <p class ="medium">
+                    <input type="checkbox" data-id ="21" id ="music" name="music" value="music"> Music
+                </p>
             </div>
             <div class="grid-item">
+                <p class ="medium">
                 <input type="checkbox" data-id = "13" id ="move" name="move" value="move"> Movements and Politics
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id = "12" id ="lgbtq" name="lgbtq" value="lgbtq"> LGBTQ
+                <p class ="medium">
+                    <input type="checkbox" data-id = "12" id ="lgbtq" name="lgbtq" value="lgbtq"> LGBTQ
+                </p>
+         </div>
+            <div class="grid-item">
+                <p class ="medium">
+                    <input type="checkbox" data-id = "20" id ="film" name="film" value="film"> Movies and Film 
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id = "20" id ="film" name="film" value="film"> Movies and Film
+                <p class ="medium">
+                    <input type="checkbox" data-id="29" id ="sfg" name="sfg" value="sfg"> Sci-Fi and Games
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id="29" id ="sfg" name="sfg" value="sfg"> Sci-Fi and Games
+                <p class ="medtwo">
+                    <input type="checkbox" data-id = "28" id ="beliefs" name="beliefs" value="beliefs"> Beliefs
+                </p>
+           </div>
+            <div class="grid-item">
+                <p class ="medtwo">
+                    <input type="checkbox" data-id = "1" id ="art" name="art" value="art"> Art 
+             </p>
+            </div>
+            <div class="grid-item">  
+                <p class ="medtwo"> 
+                    <input type="checkbox" data-id="18" id ="bc" name="bc" value="bc"> Book Clubs
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id = "28" id ="beliefs" name="beliefs" value="beliefs"> Beliefs
+                <p class ="medtwo">
+                    <input type="checkbox" data-id="5" id ="dance" name="dance" value="dance"> Dance
+                </p>
+         </div>
+            <div class="grid-item">
+                <p class ="light">
+                    <input type="checkbox" data-id ="26" id ="pets" name="pets" value="pets"> Pets
+                </p>
+          </div>
+            <div class="grid-item">
+                <p class ="light">
+                    <input type="checkbox" data-id="15" id ="hc" name="hc" value="hc"> Hobbies and Crafts
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id = "1" id ="art" name="art" value="art"> Art 
-            </div>
-            <div class="grid-item">   
-                <input type="checkbox" data-id="18" id ="bc" name="bc" value="bc"> Book Clubs
-            </div>
-            <div class="grid-item">
-                <input type="checkbox" data-id="5" id ="dance" name="dance" value="dance"> Dance
+                 <p class ="light">
+                    <input type="checkbox" data-id = "8" id ="fb" name="fb" value="fb"> Fashion and Beauty
+                </p>
             </div>
             <div class="grid-item">
-                <input type="checkbox" data-id ="26" id ="pets" name="pets" value="pets"> Pets
-            </div>
-            <div class="grid-item">
-                <input type="checkbox" data-id="15" id ="hc" name="hc" value="hc"> Hobbies and Crafts
-            </div>
-            <div class="grid-item">
-                <input type="checkbox" data-id = "8" id ="fb" name="fb" value="fb"> Fashion and Beauty
-            </div>
-            <div class="grid-item">
-                <input type="checkbox" data-id = "31" id ="social" name="social" value="social"> Social
+                <p class ="light">
+                    <input type="checkbox" data-id = "31" id ="social" name="social" value="social"> Social
+                </p>
             </div>
              <div class="grid-item">
+                <p class ="light" id="cab">
                 <input type="checkbox" data-id="2" id ="cb" name="cb" value="cb"> Career Business
+                </p>
              </div>
              <div class="grid-item">
-                <input type="submit" name ="submitBtn" id = "submitBtn" value="Submit">
+                <p class ="light" >
+                    <input type="submit" name ="submitBtn" id = "submitBtn" value="Submit">
+                </p>
             </div>
         </div>
     </form>
-<a href = "/profile">Profile</a>
 </body>
 </html>

@@ -1,30 +1,70 @@
+*{
+     font-family: 'Oswald', sans-serif;
+     color: #333f4f; 
+}
+
+.capBold, .btn{
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
 .picture{
-        display: flex;
+    background: url("../images/mountainman.jpg") no-repeat center center fixed; 
+    display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-repeat: no-repeat;
     background-size: cover;
-    background-color: transparent;
-    background-position: 50% 50%;
     background-image: url("../images/mountainman.jpg");
-    min-height: 0px;
+    /* min-height: 0px; */
     height: 100vh;
+    width: 100vw;
     margin-top: 0;
-    margin-bottom: 0px;
+    margin-bottom: 0px;  
 }
 .container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    width: 300px;
-    height: 400px;
+    width: 50vw;
+
 }
-.container input{
-    border-radius: 3px;
-    border: none;
+
+.btn-default, .btn{
+    background-color:#333f4f;
+    text-align: center;
+    border: 2px solid white;
+    color:white;
+}
+
+
+p{
+    color:white;
+}
+.btn-default:hover, .btn:hover{
+    background-color:#333f4f;
+    text-align: center;
+    border: 2px solid goldenrod;
+    color:gold;
+}
+
+
+.border{
+    border-radius: 3px solid #333f4f;
+
 }
 .container .btn{
     margin-top: 10px;
+}
+h3{
+    color:  #333f4f;
+    width: 60vw;
+}
+.formField{
+    border: 1px soild  #333f4f
+}
+
+.parg{
+    width: 65vw;
 }

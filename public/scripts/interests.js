@@ -75,7 +75,11 @@ $('form').submit(function(e) {
             username: username, //pass user in from index.html, may use email instead
             interests: userInterests //get from intrests.html
         },
-        success:  window.location.replace('/profile'),
+        success: ()=>{
+           $('#submitBtn').on('click',()=>{
+               window.location.replace('/profile')
+            }) 
+        },
         error: console.log('Error - interests not submitted')
     }) 
      

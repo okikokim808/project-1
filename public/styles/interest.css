@@ -1,17 +1,51 @@
+*, label{
+    color: #333f4f;
+    text-align: center;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: auto auto;
-    background-color: #2196F3;
+   
     padding: 5px;
     margin: 10px;
   }
 
-.body{
-    background-color: red;
+#submitBtn, #zipSubmit.btn{
+    color:white;
+    background-color: #333f4f;
 }
 
-#submitBtn{
-    color:black;
-    background-color: white;
-    margin-left: 4em;
+body{
+    background:url('../images/mountains.jpg')no-repeat center center fixed;
+    background-size: cover; 
 }
+
+#location.container{
+    border: 1px solid white ;
+    padding: .5em;
+  
+}
+
+h1, h2{
+    text-align: center;
+}
+
+.medblue{
+    color: blue;
+}
+.light{
+    color: lightgrey;
+}
+#zipSubmit.btn{
+    text-align: center;
+}
+
+@media screen and (max-width: 385px) {
+    *{font-size: 1em}
+    .light {
+        color: #333f4f 
+    }
+    #cab{
+        color: lightgrey} 
+    }
