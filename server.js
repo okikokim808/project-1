@@ -173,7 +173,6 @@ app.put('/interests', (req, res) => {
   .exec()
   .then( user => {
     console.log("user " + user);
-    // user.interests = user.interests + req.body.interests
   })
   res.status(200).json({
     message: "Sent OK"
@@ -201,21 +200,17 @@ app.put('/profile/comment', function (req, res) {
     })
   }
 })
+
 //FUNCTIONS
 function verifyToken(req, res, next) {
     const bearerHeader = req.headers['authorization'];
     console.log(bearerHeader)
-    //bearer check
     if(typeof bearerHeader !== 'undefined'){
       const bearer = bearerHeader.split(' ');
-      // Get token from array
       const bearerToken = bearer[1];
-      // Set the token
       req.token = bearerToken;
-      // Next middleware
       next();
     } else {
-      // Forbidden
       res.sendStatus(403);
     }
   }

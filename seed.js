@@ -1,8 +1,5 @@
-// simply run: `node seed.js` from the root of this project folder.
-// const db = require('./models');
 const db = require('./models')
 const users = 
-// [
     {
         name: "Clark Kent",
         email: "clarkKent@superman.com",
@@ -12,32 +9,14 @@ const users =
         meetupIDs: 12,
         comment:[]
     }
-    // ,
-    // {
-    //     email: "bruceWayne@batman.com",
-    //     password: "blackBat456",  
-    //     username: "bWayne",
-    //     interests: "fd, dance, film",
-    //     meetupIDs: "11, 14, 15",
-    // },
-    // {
-    //     email: "tonyStark@ironman.com",
-    //     password: "redSuit789",  
-    //     username: "tStark",
-    //     interests: "hw, move, hc",
-    //     meetupIDs: "8, 9, 10",
-    // }
-// ]
 
 const usrComment = {
     name: "Clark Kent",
     comment: "My cape is red"
 }
 
-
 //SERVER
 //grab user id (req.body.userId - from AJAX call)
-//user.comments.foreach(comment)
 db.User.deleteMany({},(err, removed)=>{
     console.log('deleted')
     db.User.create(users,(err,savedUser)=>{ //findOne
@@ -59,19 +38,19 @@ db.User.deleteMany({},(err, removed)=>{
     })
 })
 
-// db.User.deleteMany({}, (err, removeUser) =>{
-//     if(err){
-//         return console.log('Error')
-//     }
-//     return console.log('Remove User from DB.')
-// })
+db.User.deleteMany({}, (err, removeUser) =>{
+    if(err){
+        return console.log('Error')
+    }
+    return console.log('Remove User from DB.')
+})
 
-// db.User.create(users,(err, users)=>{
-//     if(err){
-//         return console.log("Error:", err);
-//     }
-//     console.log("New User Created", users)
-//     process.exit();
-// })
+db.User.create(users,(err, users)=>{
+    if(err){
+        return console.log("Error:", err);
+    }
+    console.log("New User Created", users)
+    process.exit();
+})
 
 

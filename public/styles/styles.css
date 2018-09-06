@@ -29,7 +29,7 @@
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    width: 50vw;
+    /* width: 50vw; */
 
 }
 
@@ -60,18 +60,19 @@ p{
 .container .btn{
     margin-top: 10px;
 }
-h3{
+/* h3{
     color:  #333f4f;
     width: 60vw;
-}
+} */
 .formField{
     border: 1px soild  #333f4f
 }
 
-.parg{
+#about{
     width: 65vw;
 }
 
-.text-center, #loginForm.container{
+ #loginForm.container{
     margin: 2em;
+    width: 65vw;
 }
