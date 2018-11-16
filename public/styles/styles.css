@@ -1,82 +1,97 @@
 *{
-    color: #333f4f; 
+    background: #ffffff;
+}
+
+.main, 
+.pgform,
+header, 
+.modals, 
+#formabout, 
+.new{
+    display: flex;
+}
+
+.new, 
+h3, 
+#signupModal{
+    background-color: #000000;
+}
+
+h3, 
+.btn-default, 
+.btn{color:white}
+
+.pgform{flex-direction: column;}
+.capBold{margin: 1em;}
+
+
+.container .btn{margin-top: 10px;}
+#about{width: 65vw;}
+#submitBtn{width: 10vw;}
+
+header{
+    color: #F64060;
+    text-align: center;
+    justify-content: space-between;
+}
+
+#formabout{
+    flex-direction: row;
+    margin: 1em;
+}
+
+#signupBtn{
+    margin-top:1em;
+    margin-left: .75em;
 }
 
 .capBold, .btn{
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Rock Salt', cursive;
     text-transform: uppercase;
     font-weight: bolder;
 }
 
 .picture{
-    background: url("../images/mountainman.jpg") no-repeat center center fixed; 
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    background-image: url("/images/main.jpg");
+    height: 50vh;
+    width: 100vw; 
+    background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
-    background-image: url("../images/mountainman.jpg");
-    /* min-height: 0px; */
-    height: 100vh;
-    width: 100vw;
-    margin-top: 0;
-    margin-bottom: 0px;  
-}
-
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
 }
 
 .btn-default, .btn{
-    background-color:#333f4f;
+    background-color:#F64060;
     text-align: center;
     border: 2px solid white;
-    color:white;
 }
 
 #email, #password{
-    width: 50vw;
-}
-
-#submitBtn{
     width: 10vw;
-    /* float: right; */
+    margin-top: 2em;
 }
-
-
 
 p{
-    color:white;
-    font-size: .9em;
+    margin: 1em 5em;
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: 500;
+}
+
+.new{
+    justify-content: center;
+    padding-bottom:1.2em;
+}
+
+#signInBtn.btn{
+    width: 50px;
+    height: 50px;
+    margin-top: 15em;
 }
 
 .btn-default:hover, .btn:hover{
-    background-color:#333f4f;
-    text-align: center;
-    border: 2px solid goldenrod;
-    color:gold;
+    color: #F64060;
+    background: #fff;
+    border: 3px solid #F64060;
 }
 
-.border{
-    border-radius: 3px solid #333f4f;
-}
-
-.container .btn{
-    margin-top: 10px;
-}
-
-.formField{
-    border: 1px soild  #333f4f
-}
-
-#about{
-    width: 65vw;
-}
-
-#loginForm.container{
-    margin: 2em;
-    width: 65vw;
-}
