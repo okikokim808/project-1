@@ -83,8 +83,11 @@ $(document).ready(function(){
 
 //When the .AJAX call is successful, get data and length for random functions
 function onSuccess(response){
+    
     var meetupJSONResponse = response.data;
     let maxLen = meetupJSONResponse.length;
+
+    console.log(response)
 
 //calculate random number
 function randomNum(min,max,interval)

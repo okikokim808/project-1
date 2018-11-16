@@ -1,13 +1,11 @@
 *{
-     
-     color: #333f4f; 
+    color: #333f4f; 
 }
 
 .capBold, .btn{
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     font-weight: bolder;
-    text-decoration: underline;
 }
 
 .picture{
@@ -24,13 +22,12 @@
     margin-top: 0;
     margin-bottom: 0px;  
 }
+
 .container{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    /* width: 50vw; */
-
 }
 
 .btn-default, .btn{
@@ -40,11 +37,22 @@
     color:white;
 }
 
+#email, #password{
+    width: 50vw;
+}
+
+#submitBtn{
+    width: 10vw;
+    /* float: right; */
+}
+
+
 
 p{
     color:white;
     font-size: .9em;
 }
+
 .btn-default:hover, .btn:hover{
     background-color:#333f4f;
     text-align: center;
@@ -52,18 +60,14 @@ p{
     color:gold;
 }
 
-
 .border{
     border-radius: 3px solid #333f4f;
-
 }
+
 .container .btn{
     margin-top: 10px;
 }
-/* h3{
-    color:  #333f4f;
-    width: 60vw;
-} */
+
 .formField{
     border: 1px soild  #333f4f
 }
@@ -72,7 +76,7 @@ p{
     width: 65vw;
 }
 
- #loginForm.container{
+#loginForm.container{
     margin: 2em;
     width: 65vw;
 }

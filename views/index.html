@@ -5,11 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Spontaneous</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
     <!-- BootStrap - for forms -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Oswald|Roboto+Condensed" rel="stylesheet">
    <!-- Stylesheet -->
@@ -19,36 +22,64 @@
     <!-- Custom Script -->
     <script src="scripts/app.js" defer></script> 
 </head>
-<body >
-<div class = "mainContainer">
- 
+
+<body>
+    <header>
+        <h1 class = "capBold">Spontaneous</h1>
+    </header>
+    <div class = "mainContainer">
     <div class="picture"> 
-            <h1 class = "capBold">Spontaneous</h1>    
-        <!-- <div class="bg-img"> -->
-            <form action="/profile" class="container" id="loginForm">
-            
-              <label for="email"><b>Email</b></label>
-              <input class = "border"type="text" placeholder="Enter Email" name="email" required>
-              <label for="psw"><b>Password</b></label>
-              <input type="password" placeholder="Enter Password" name="psw" required>
-              <button type="submit" id ="submitBtn" class="btn">Login</button>
-            </form>
-            <!-- bootsrap modal -->
-    <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"   aria-hidden="true">
+
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Sign In
+      </button>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form action="/profile" class="container" id="loginForm">
+                        <label for="email"><b>Email</b></label>
+                        <input class = "border" id="email" type="text" placeholder="Enter Email" name="email" required>
+        
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" id="password" placeholder="Enter Password" name="psw" required>
+
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" id="submitBtn" class="btn">Login</button>
+            </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- bootsrap modal -->
+        <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content" id="signupForm">
+
                     <div class="modal-header text-center">
-                        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
                         <button type="button" class="signUpBtn" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+
                     <div class="modal-body mx-3">
                         <div class="md-form mb-5">
                             <i class="fa fa-user prefix grey-text"></i>
                             <input type="text" id="subName" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Name</label>
                         </div>
+
                         <div class="md-form mb-5">
                             <i class="fa fa-envelope prefix grey-text"></i>
                             <input type="email" id="subEmail" class="form-control validate">
@@ -66,24 +97,31 @@
                             <input type="password" id="subVerify" class="form-control validate">
                             <label data-error="wrong" data-success="right" for="orangeForm-pass">Verify Password</label>
                         </div>
-
                     </div>
+
                     <div class="modal-footer d-flex justify-content-center">
-                        <button type="submit" class="btn btn-deep-orange" id="signUpBtn">Sign up</button>
+                        <button type="submit" class="btn btn-deep-orange" id="signUpBtn">
+                            Sign up
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="text-center">
-                <h3 class = "capBold">New to Spontaneous?</h3>
+                <h3 class = "capBold">
+                    New to Spontaneous?
+                </h3>
+
                 <div class = "parg">
-                    <p id = "about">We live in an interetsing world. We're constantly connected to our world, but striving to make meaningful connections. We have hundreds of options, but can't make a decision. Meet Spontaneous,a new way to meet people without trying to make a decison. We're a Meetup generator that provides you with three random opportunities to meet new people everyday and make lasting connections!</p>
-            </div>
+                    <p id = "about">
+                        We live in an interetsing world. We're constantly connected to our world, but striving to make meaningful connections. We have hundreds of options, but can't make a decision. Meet Spontaneous,a new way to meet people without trying to make a decison. We're a Meetup generator that provides you with three random opportunities to meet new people everyday and make lasting connections!
+                    </p>
+                </div>
+                
             <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalRegisterForm">Sign Up</a>
         </div>
         </div>
     </div>
-   
-      
 </body>
 </html>
